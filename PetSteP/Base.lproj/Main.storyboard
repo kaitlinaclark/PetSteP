@@ -451,17 +451,16 @@
             </objects>
             <point key="canvasLocation" x="1280" y="586"/>
         </scene>
-        <!--View Controller-->
+        <!--Storage View Controller-->
         <scene sceneID="RRP-Tt-6yV">
             <objects>
-                <viewController id="ffM-Mc-AC4" sceneMemberID="viewController">
+                <viewController id="ffM-Mc-AC4" customClass="StorageViewController" customModule="PetSteP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Dac-Jo-6gm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BLt-Nf-ahA">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BLt-Nf-ahA">
                                 <rect key="frame" x="0.0" y="88" width="414" height="761"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ovz-PN-eXO">
                                         <rect key="frame" x="8" y="-12" width="398" height="174"/>
@@ -543,8 +542,20 @@
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="CiF-kh-bPF" firstAttribute="trailing" secondItem="BLt-Nf-ahA" secondAttribute="trailing" id="2kJ-MA-p2w"/>
+                            <constraint firstItem="CiF-kh-bPF" firstAttribute="bottom" secondItem="BLt-Nf-ahA" secondAttribute="bottom" constant="13" id="7Kf-eO-589"/>
+                            <constraint firstItem="BLt-Nf-ahA" firstAttribute="top" secondItem="CiF-kh-bPF" secondAttribute="top" id="uvD-bg-4sp"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="CiF-kh-bPF"/>
                     </view>
+                    <connections>
+                        <outlet property="careTableView" destination="JD2-Sm-1ar" id="WRW-Dm-Bah"/>
+                        <outlet property="foodTableView" destination="kpo-6R-mo0" id="Iuh-Nh-war"/>
+                        <outlet property="funTableView" destination="ahH-wC-kMS" id="N9h-Oi-GzC"/>
+                        <outlet property="furnitureTableView" destination="h29-qy-70r" id="Xkn-I5-lRs"/>
+                        <outlet property="scrollView" destination="BLt-Nf-ahA" id="tp2-Xt-M9q"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xG2-cf-LLt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
