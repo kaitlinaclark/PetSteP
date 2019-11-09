@@ -20,6 +20,7 @@
 		0B59B0AD237775CF004DFAB6 /* StorageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B59B0AC237775CF004DFAB6 /* StorageViewController.swift */; };
 		0B59B0AF23777A9D004DFAB6 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B59B0AE23777A9D004DFAB6 /* FriendsViewController.swift */; };
 		0B59B0B123777E38004DFAB6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B59B0B023777E38004DFAB6 /* SettingsViewController.swift */; };
+		0B59B0B32377801E004DFAB6 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B59B0B22377801E004DFAB6 /* HomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		0B59B0AC237775CF004DFAB6 /* StorageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageViewController.swift; sourceTree = "<group>"; };
 		0B59B0AE23777A9D004DFAB6 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		0B59B0B023777E38004DFAB6 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		0B59B0B22377801E004DFAB6 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				0B59B07823774C09004DFAB6 /* AppDelegate.swift */,
 				0B59B07A23774C09004DFAB6 /* ViewController.swift */,
 				0B59B07C23774C09004DFAB6 /* Main.storyboard */,
+				0B59B0B22377801E004DFAB6 /* HomeViewController.swift */,
 				0B59B0B023777E38004DFAB6 /* SettingsViewController.swift */,
 				0B59B0AC237775CF004DFAB6 /* StorageViewController.swift */,
 				0B59B0AE23777A9D004DFAB6 /* FriendsViewController.swift */,
@@ -278,6 +281,7 @@
 				0B59B0AD237775CF004DFAB6 /* StorageViewController.swift in Sources */,
 				0B59B07923774C09004DFAB6 /* AppDelegate.swift in Sources */,
 				0B59B0AF23777A9D004DFAB6 /* FriendsViewController.swift in Sources */,
+				0B59B0B32377801E004DFAB6 /* HomeViewController.swift in Sources */,
 				0B59B0A92377715C004DFAB6 /* PetDetailsViewController.swift in Sources */,
 				0B59B0AB23777289004DFAB6 /* ShoppingViewController.swift in Sources */,
 				0B59B0B123777E38004DFAB6 /* SettingsViewController.swift in Sources */,
