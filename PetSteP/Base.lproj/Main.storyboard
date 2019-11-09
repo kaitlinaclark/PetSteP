@@ -421,17 +421,16 @@
             </objects>
             <point key="canvasLocation" x="837.68115942028987" y="-506.25"/>
         </scene>
-        <!--View Controller-->
+        <!--Settings View Controller-->
         <scene sceneID="yR6-ao-czu">
             <objects>
-                <viewController id="Xrt-TO-mzg" sceneMemberID="viewController">
+                <viewController id="Xrt-TO-mzg" customClass="SettingsViewController" customModule="PetSteP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4yS-Fh-ERb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lIJ-YN-cey">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lIJ-YN-cey">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="65N-FP-MJs">
                                         <rect key="frame" x="0.0" y="8" width="414" height="667"/>
@@ -543,8 +542,20 @@
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="t7G-sM-b6S" firstAttribute="trailing" secondItem="lIJ-YN-cey" secondAttribute="trailing" id="59R-hG-Myy"/>
+                            <constraint firstItem="lIJ-YN-cey" firstAttribute="top" secondItem="t7G-sM-b6S" secondAttribute="top" id="euf-77-C9w"/>
+                            <constraint firstItem="t7G-sM-b6S" firstAttribute="bottom" secondItem="lIJ-YN-cey" secondAttribute="bottom" id="fax-8O-8jQ"/>
+                            <constraint firstItem="lIJ-YN-cey" firstAttribute="leading" secondItem="t7G-sM-b6S" secondAttribute="leading" id="yKi-cb-4xN"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="t7G-sM-b6S"/>
                     </view>
+                    <connections>
+                        <outlet property="aboutGameText" destination="nLz-zm-IzH" id="LT7-NH-27V"/>
+                        <outlet property="resetPwdField" destination="4Bl-tW-05p" id="yNo-hV-Exg"/>
+                        <outlet property="scrollView" destination="lIJ-YN-cey" id="njG-st-hyN"/>
+                        <outlet property="visibilitySwitch" destination="JaV-eF-HuM" id="JF3-gE-fc3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UmF-A2-B10" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
