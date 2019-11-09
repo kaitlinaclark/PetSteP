@@ -16,6 +16,7 @@
 		0B59B09923774C0A004DFAB6 /* PetStePUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B59B09823774C0A004DFAB6 /* PetStePUITests.swift */; };
 		0B59B0A723776177004DFAB6 /* DisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B59B0A623776177004DFAB6 /* DisplayView.swift */; };
 		0B59B0A92377715C004DFAB6 /* PetDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B59B0A82377715C004DFAB6 /* PetDetailsViewController.swift */; };
+		0B59B0AB23777289004DFAB6 /* ShoppingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B59B0AA23777289004DFAB6 /* ShoppingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		0B59B09A23774C0A004DFAB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B59B0A623776177004DFAB6 /* DisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayView.swift; sourceTree = "<group>"; };
 		0B59B0A82377715C004DFAB6 /* PetDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetDetailsViewController.swift; sourceTree = "<group>"; };
+		0B59B0AA23777289004DFAB6 /* ShoppingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				0B59B07A23774C09004DFAB6 /* ViewController.swift */,
 				0B59B07C23774C09004DFAB6 /* Main.storyboard */,
 				0B59B0A82377715C004DFAB6 /* PetDetailsViewController.swift */,
+				0B59B0AA23777289004DFAB6 /* ShoppingViewController.swift */,
 				0B59B07F23774C0A004DFAB6 /* Assets.xcassets */,
 				0B59B08123774C0A004DFAB6 /* LaunchScreen.storyboard */,
 				0B59B08423774C0A004DFAB6 /* Info.plist */,
@@ -265,6 +268,7 @@
 				0B59B07B23774C09004DFAB6 /* ViewController.swift in Sources */,
 				0B59B07923774C09004DFAB6 /* AppDelegate.swift in Sources */,
 				0B59B0A92377715C004DFAB6 /* PetDetailsViewController.swift in Sources */,
+				0B59B0AB23777289004DFAB6 /* ShoppingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

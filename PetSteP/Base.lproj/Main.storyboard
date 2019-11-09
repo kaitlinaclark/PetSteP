@@ -305,10 +305,10 @@
             </objects>
             <point key="canvasLocation" x="-155.07246376811597" y="279.91071428571428"/>
         </scene>
-        <!--View Controller-->
+        <!--Shopping View Controller-->
         <scene sceneID="1zx-H4-FMR">
             <objects>
-                <viewController id="LTf-LT-Raa" sceneMemberID="viewController">
+                <viewController id="LTf-LT-Raa" customClass="ShoppingViewController" customModule="PetSteP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nzd-NE-tap">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -405,6 +405,17 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="NHd-EX-oJ5"/>
                     </view>
+                    <connections>
+                        <outlet property="careButton" destination="s9F-Vv-Kca" id="iAg-nx-zBn"/>
+                        <outlet property="coinsImg" destination="mmU-Kg-u5f" id="9GR-vk-SS5"/>
+                        <outlet property="coinsLabel" destination="zRQ-jT-9p7" id="3bw-j0-OIO"/>
+                        <outlet property="collectionView" destination="7PD-ru-Y7P" id="dnH-Cp-mgo"/>
+                        <outlet property="foodButton" destination="f6j-Oa-Wom" id="DNa-VC-uAb"/>
+                        <outlet property="funButton" destination="pXE-t6-Hji" id="qAB-3Z-SYC"/>
+                        <outlet property="furnitureButton" destination="Lxe-hg-0es" id="5QR-E2-ePB"/>
+                        <outlet property="purchaseButton" destination="BTd-30-Ybj" id="HQ9-3I-8q1"/>
+                        <outlet property="scrollView" destination="KhW-ZZ-jpp" id="Bt6-Ww-5mP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sU5-fw-h4T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
