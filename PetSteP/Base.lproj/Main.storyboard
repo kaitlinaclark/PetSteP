@@ -98,7 +98,7 @@
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="vC7-2l-BgU" kind="show" id="Jwn-YA-w5b"/>
+                                                            <segue destination="vC7-2l-BgU" kind="show" identifier="PetDetailsSegue" id="Jwn-YA-w5b"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x24-vf-Vep">
@@ -108,7 +108,7 @@
                                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="LTf-LT-Raa" kind="show" id="VPx-Nh-9ra"/>
+                                                            <segue destination="LTf-LT-Raa" kind="show" identifier="ShopSegue" id="VPx-Nh-9ra"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="88Q-8T-uiu">
@@ -118,7 +118,7 @@
                                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="ffM-Mc-AC4" kind="show" id="GGP-wD-3fS"/>
+                                                            <segue destination="ffM-Mc-AC4" kind="show" identifier="StorageSegue" id="GGP-wD-3fS"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dUj-Du-fNx">
@@ -128,7 +128,7 @@
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="j7x-59-eAb" kind="show" id="Me0-GI-bwz"/>
+                                                            <segue destination="j7x-59-eAb" kind="show" identifier="FriendsSegue" id="Me0-GI-bwz"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H1p-Ck-zAU">
@@ -138,7 +138,7 @@
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="Xrt-TO-mzg" kind="show" id="Lhx-Xp-aiQ"/>
+                                                            <segue destination="Xrt-TO-mzg" kind="show" identifier="SettingsSegue" id="Lhx-Xp-aiQ"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
