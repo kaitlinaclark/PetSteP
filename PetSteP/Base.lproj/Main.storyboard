@@ -436,10 +436,10 @@
             </objects>
             <point key="canvasLocation" x="535" y="1009"/>
         </scene>
-        <!--View Controller-->
+        <!--Friends View Controller-->
         <scene sceneID="GwI-UH-cGV">
             <objects>
-                <viewController id="j7x-59-eAb" sceneMemberID="viewController">
+                <viewController id="j7x-59-eAb" customClass="FriendsViewController" customModule="PetSteP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hGK-PS-VX6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -530,6 +530,12 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Iko-Of-bTY"/>
                     </view>
+                    <connections>
+                        <outlet property="findFriendSearchBar" destination="v4h-XR-u7P" id="pme-Bd-heP"/>
+                        <outlet property="friendsTableView" destination="DoE-k3-Bvf" id="ePK-aO-tOg"/>
+                        <outlet property="requestsTableView" destination="2r6-4Y-oPz" id="Ptr-uU-5pO"/>
+                        <outlet property="scrollView" destination="aTP-sA-ljG" id="3J9-EJ-hj8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h6J-eI-sry" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
