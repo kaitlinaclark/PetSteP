@@ -1,0 +1,6 @@
+framework module Pods_PetSteP {
+  umbrella header "Pods-PetSteP-umbrella.h"
+
+  export *
+  module * { export * }
+}

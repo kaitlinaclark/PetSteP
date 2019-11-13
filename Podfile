@@ -1,0 +1,21 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'PetSteP' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+  pod 'Firebase/Auth'
+
+  # Pods for PetSteP
+
+  target 'PetStePTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'PetStePUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
