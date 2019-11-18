@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
+import FirebaseFirestore
 
 class StorageViewController: UIViewController, UITableViewDelegate {
 
@@ -25,7 +28,32 @@ class StorageViewController: UIViewController, UITableViewDelegate {
         // Do any additional setup after loading the view.
         
         view.addSubview(scrollView)
+        
+        let db = Firestore.firestore()
+       
+        
+        db.collection("storeItems").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                
+                for document in querySnapshot!.documents {
+                    print("\(document.documentID) => \(document.data())")
+                    print("Document Type: \(type(of: document))")
+                    
+                }
+
+            }
+        }
+
+        
+        
+        
     }
+    
+    
+    
+    
     
 
     /*

@@ -8,14 +8,7 @@ target 'PetSteP' do
 
   # Pods for PetSteP
 
-  target 'PetStePTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
+  pod 'Firebase/Firestore'
 
-  target 'PetStePUITests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
 
 end

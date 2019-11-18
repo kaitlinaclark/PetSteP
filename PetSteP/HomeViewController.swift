@@ -55,7 +55,10 @@ class HomeViewController: UIViewController {
         waterBar.color = .gray
     }
     
-
+    @IBAction func onLogoutButtonPressed(_ sender: Any) {
+        
+    }
+    
     /*
     // MARK: - Navigation
 
