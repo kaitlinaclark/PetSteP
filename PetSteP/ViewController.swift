@@ -27,6 +27,17 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if Auth.auth().currentUser != nil{
+            pushHomeView()
+        }
+        
+        
+        
+    }
+    
     @IBAction func loginButtonPressed(_ sender: Any) {
         toggleUI(display: false)
         toggleSpinner(display: true)

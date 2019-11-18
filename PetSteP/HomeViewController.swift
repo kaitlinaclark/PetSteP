@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class HomeViewController: UIViewController {
 
@@ -38,6 +39,9 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var healthIcon: UIImageView!
     @IBOutlet weak var healthLabel: UILabel!
     
+    // For firebase authentication
+    var handle:AuthStateDidChangeListenerHandle?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +59,50 @@ class HomeViewController: UIViewController {
         waterBar.color = .gray
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Adding a listener to check if the user is still logged in
+        handle = Auth.auth().addStateDidChangeListener { (auth, user) in
+            if (user == nil){
+                self.pushLoginView()
+            }
+        }
+
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if handle != nil{
+            Auth.auth().removeStateDidChangeListener(handle!)
+        }
+        
+    }
+    
+    
+    
     @IBAction func onLogoutButtonPressed(_ sender: Any) {
+       logoutFromFirebase()
+        pushLoginView()
+    }
+    
+    func logoutFromFirebase(){
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+    }
+    
+    func pushLoginView(){
+        /* Example Reference:  https://stackoverflow.com/questions/39929592/how-to-push-and-present-to-uiviewcontroller-programmatically-without-segue-in-io */
+        
+        // Safe Push VC
+        if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as? UINavigationController {
+            if let navigator = navigationController {     navigator.showDetailViewController(viewController, sender: self)
+            }
+        }
         
     }
     

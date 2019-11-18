@@ -13,7 +13,7 @@
         <!--View Controller-->
         <scene sceneID="uuD-fW-Vqs">
             <objects>
-                <viewController storyboardIdentifier="LoginViewController" id="oLr-74-HvA" customClass="ViewController" customModule="PetSteP" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="oLr-74-HvA" customClass="ViewController" customModule="PetSteP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="m1m-w9-Bx7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1139,7 +1139,7 @@
         <!--Navigation Controller-->
         <scene sceneID="g6k-zV-VQe">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KFq-AY-46K" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LoginViewController" automaticallyAdjustsScrollViewInsets="NO" id="KFq-AY-46K" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="WiC-YD-Val">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
