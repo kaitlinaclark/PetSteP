@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -23,6 +23,8 @@
 		0B59B0B32377801E004DFAB6 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B59B0B22377801E004DFAB6 /* HomeViewController.swift */; };
 		9C796F59446DBC62C091882E /* Pods_PetSteP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 931B6C670770F4AE96D77293 /* Pods_PetSteP.framework */; };
 		A7AD0E59237C926400B06BA2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A7AD0E58237C926400B06BA2 /* GoogleService-Info.plist */; };
+		A7CAFC912384F61800BA91D9 /* StorageView2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CAFC902384F61800BA91D9 /* StorageView2ViewController.swift */; };
+		A7CD053E2383345200BA1028 /* UserDefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CD053D2383345200BA1028 /* UserDefaultKeys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,8 @@
 		64A8FB30835A980951B4EFB3 /* Pods-PetSteP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetSteP.release.xcconfig"; path = "Target Support Files/Pods-PetSteP/Pods-PetSteP.release.xcconfig"; sourceTree = "<group>"; };
 		931B6C670770F4AE96D77293 /* Pods_PetSteP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PetSteP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7AD0E58237C926400B06BA2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A7CAFC902384F61800BA91D9 /* StorageView2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageView2ViewController.swift; sourceTree = "<group>"; };
+		A7CD053D2383345200BA1028 /* UserDefaultKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKeys.swift; sourceTree = "<group>"; };
 		DBDE8B6D23F783C0F3EBB6C6 /* Pods-PetSteP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetSteP.debug.xcconfig"; path = "Target Support Files/Pods-PetSteP/Pods-PetSteP.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -134,6 +138,8 @@
 				0B59B08423774C0A004DFAB6 /* Info.plist */,
 				0B59B0A623776177004DFAB6 /* DisplayView.swift */,
 				A7AD0E58237C926400B06BA2 /* GoogleService-Info.plist */,
+				A7CD053D2383345200BA1028 /* UserDefaultKeys.swift */,
+				A7CAFC902384F61800BA91D9 /* StorageView2ViewController.swift */,
 			);
 			path = PetSteP;
 			sourceTree = "<group>";
@@ -170,7 +176,6 @@
 				DBDE8B6D23F783C0F3EBB6C6 /* Pods-PetSteP.debug.xcconfig */,
 				64A8FB30835A980951B4EFB3 /* Pods-PetSteP.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -349,8 +354,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7CD053E2383345200BA1028 /* UserDefaultKeys.swift in Sources */,
 				0B59B0A723776177004DFAB6 /* DisplayView.swift in Sources */,
 				0B59B07B23774C09004DFAB6 /* ViewController.swift in Sources */,
+				A7CAFC912384F61800BA91D9 /* StorageView2ViewController.swift in Sources */,
 				0B59B0AD237775CF004DFAB6 /* StorageViewController.swift in Sources */,
 				0B59B07923774C09004DFAB6 /* AppDelegate.swift in Sources */,
 				0B59B0AF23777A9D004DFAB6 /* FriendsViewController.swift in Sources */,

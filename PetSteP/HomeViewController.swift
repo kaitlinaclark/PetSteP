@@ -7,9 +7,14 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
+
+import CoreMotion
+
+
 
 class HomeViewController: UIViewController {
-
+    
     @IBOutlet weak var petNameLabel: UILabel!
     
     @IBOutlet weak var harvestCoinsButton: UIButton!
@@ -21,9 +26,9 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var coinsLabel: UILabel!
     
     
+    
+    
     //NO IMAGE VIEW FOR PET IMAGE YET
-    
-    
     @IBOutlet weak var happyIcon: UIImageView!
     @IBOutlet weak var happyBar: DisplayView!
     
@@ -39,13 +44,26 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var healthIcon: UIImageView!
     @IBOutlet weak var healthLabel: UILabel!
     
+    let defaults = UserDefaults.standard
+    
+    let STEPS_LABEL = "Steps:"
+    let COINS_LABEL = "Coins:"
+    
+    
+    
     // For firebase authentication
     var handle:AuthStateDidChangeListenerHandle?
+    
+    // Firebase user data object
+    var userData:QueryDocumentSnapshot?
+    
+    private let activityManager = CMMotionActivityManager()
+    private var pedometer = CMPedometer()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
         //set initial values for bars
@@ -57,7 +75,111 @@ class HomeViewController: UIViewController {
         
         waterBar.animateValue(to: CGFloat(0.5))
         waterBar.color = .gray
+        
+        initUserDataView()
     }
+    
+    func updateStepsIfAvailable() {
+        print("attempting to get steps..")
+        print(CMPedometer.isStepCountingAvailable())
+        //check if pedometer data is available
+        if CMPedometer.isStepCountingAvailable() {
+            //get current date (currently gives step for single day)
+            let calendar = Calendar.current
+            //get pedometer data
+            pedometer.queryPedometerData(from: calendar.startOfDay(for: Date()), to: Date()) { (data, error) in
+//                print(data?.numberOfSteps)
+                //set label to pedometer value
+                self.stepsLabel.text = data?.numberOfSteps.stringValue
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    // initialize user data in the main menu views
+    
+    func initUserDataView(){
+        getUserDataFromDB()
+        
+    }
+    
+    
+    // Views user data. Storing data in user defaults is not necessary since they are automatically cahced by firestore
+    func viewUserData(){
+        if userData != nil{
+            
+            if let coins:Int = userData?.get(FirebaseKeys.COINS) as? Int{
+                coinsLabel.text = String("\(COINS_LABEL) \(coins)")
+            }
+            
+            
+            if let harvestableSteps:Int = userData?.get(FirebaseKeys.HARVESTABLE_STEPS) as? Int{
+                defaults.set(harvestableSteps, forKey: FirebaseKeys.HARVESTABLE_STEPS)
+                stepsLabel.text = String("\(STEPS_LABEL) \(harvestableSteps)")
+            }
+            
+            if let totalSteps:Int = userData?.get(FirebaseKeys.COINS) as? Int{
+                defaults.set(totalSteps, forKey: FirebaseKeys.TOTAL_STEPS)
+            }
+            
+          
+            if let pet = userData?.get(FirebaseKeys.PET) as? [String:AnyObject]{
+                if let petName = pet[FirebaseKeys.PET_NAME] as? String{
+                    petNameLabel.text = petName
+                }
+                
+                if let petType = pet[FirebaseKeys.PET_TYPE] as? String{
+                    print(petType)
+                }
+                
+                if let lastPlayed = pet[FirebaseKeys.LAST_PLAYED] as? Timestamp{
+                    print(lastPlayed)
+                }
+                
+                if let lastFed = pet[FirebaseKeys.LAST_FED] as? Timestamp{
+                    print(lastFed)
+                }
+                
+            }else{
+                print("Couldn't parese pet map")
+            }
+            
+        }else{
+            print("User data is nil")
+        }
+    }
+    
+    // Retrives user data from the firestore database
+    func getUserDataFromDB(){
+        let db = Firestore.firestore()
+        db.collection
+        
+        // Retrieve user data
+        if let user = Auth.auth().currentUser{
+            print("Fetching collection for \(user.uid)")
+            db.collection("users").whereField("userID", isEqualTo: user.uid).getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    // Loop should run a maximum of one time
+                    for document in querySnapshot!.documents {
+                        self.userData = document
+                        self.viewUserData()
+                    }
+                }
+            }
+            
+        }
+    }
+    
+    
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -68,7 +190,7 @@ class HomeViewController: UIViewController {
                 self.pushLoginView()
             }
         }
-
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -82,10 +204,12 @@ class HomeViewController: UIViewController {
     
     
     @IBAction func onLogoutButtonPressed(_ sender: Any) {
-       logoutFromFirebase()
+        logoutFromFirebase()
         pushLoginView()
     }
     
+    
+    // Function to log user out
     func logoutFromFirebase(){
         let firebaseAuth = Auth.auth()
         do {
@@ -95,6 +219,7 @@ class HomeViewController: UIViewController {
         }
     }
     
+    // Function to close all current views and open the login view
     func pushLoginView(){
         /* Example Reference:  https://stackoverflow.com/questions/39929592/how-to-push-and-present-to-uiviewcontroller-programmatically-without-segue-in-io */
         
@@ -107,13 +232,13 @@ class HomeViewController: UIViewController {
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

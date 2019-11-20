@@ -48,6 +48,7 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
         // Do any additional setup after loading the view.
         setupCollectionView()
         getAllShopItems()
+        getMoneyFromUser()
         
         
     }
@@ -96,6 +97,36 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         
         
+    }
+    
+    
+ 
+    
+    func getMoneyFromUser(){
+        let db = Firestore.firestore()
+        db.collection
+        
+        // Retrieve user data
+        if let user = Auth.auth().currentUser{
+            print("Fetching collection for \(user.uid)")
+            db.collection("users").whereField("userID", isEqualTo: user.uid).getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    // Loop should run a maximum of one time
+                    for document in querySnapshot!.documents {
+                        if let coins = document.get("coins") as? Int{
+                            self.coinsLabel.text = "Coins: \(coins)"
+                        }
+                        
+                        
+                        
+                        
+                    }
+                }
+            }
+            
+        }
     }
     
     // Function to assing add a document to its respective items list
@@ -167,7 +198,7 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
         titleLabel.textAlignment = NSTextAlignment.center
         
         // Setting up itemImage
-        itemImage.center.x = myCell.center.x
+        itemImage.center.x = myCell.contentView.center.x
 
         
         
@@ -186,6 +217,7 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
         if itemSubType != nil{
 
             if let image = UIImage(named: itemSubType!){
+                
                 itemImage.image = image
                 if image.size.width > image.size.height {
                     itemImage.contentMode = UIView.ContentMode.scaleAspectFit
@@ -196,7 +228,7 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
                 let message = UILabel(frame: CGRect(x: CGFloat(0), y: CGFloat(0), width: CELL_WIDTH, height: CELL_HEIGHT))
                 message.center = myCell.contentView.center
                 message.text = NO_IMG_MSG
-                message.textColor = UIColor.white
+                message.textColor = UIColor.gray
                 message.numberOfLines = NUM_LINES
                 message.font = UIFont.boldSystemFont(ofSize: MSG_FONT_SIZE)
                 message.textAlignment = NSTextAlignment.center
