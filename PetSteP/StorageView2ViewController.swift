@@ -69,7 +69,7 @@ class StorageView2ViewController: UIViewController, UICollectionViewDelegate, UI
         
         
         let db = Firestore.firestore()
-    db.collection
+        //db.collection
         
         // Retrieve user data
         if let user = Auth.auth().currentUser{

@@ -104,7 +104,7 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     func getMoneyFromUser(){
         let db = Firestore.firestore()
-        db.collection
+        //db.collection
         
         // Retrieve user data
         if let user = Auth.auth().currentUser{

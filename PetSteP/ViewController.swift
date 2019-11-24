@@ -8,7 +8,7 @@
 import UIKit
 import FirebaseAuth
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate{
     
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var pswdField: UITextField!
@@ -24,9 +24,22 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.usernameField.delegate = self;
+        self.pswdField.delegate = self;
+        
         // Do any additional setup after loading the view.
     }
     
+    //overide func so keybaord goes away when user touches outside of keybaord
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    //hide keyboard when user presses return
+    func textFieldShouldReturn(_ usernameField: UITextField) -> Bool {
+        usernameField.resignFirstResponder()
+        return true
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -46,8 +59,6 @@ class ViewController: UIViewController {
         } // TODO: Display message for invalid input
         
     }
-    
-    
     
     
     func logIn(){

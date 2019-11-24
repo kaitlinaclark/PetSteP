@@ -8,12 +8,14 @@
 import UIKit
 import FirebaseAuth
 import FirebaseFirestore
+import Firebase
 
 import CoreMotion
 
 
 
 class HomeViewController: UIViewController {
+    
     
     @IBOutlet weak var petNameLabel: UILabel!
     
@@ -95,12 +97,6 @@ class HomeViewController: UIViewController {
         }
     }
     
-    
-    
-    
-    
-    
-    
     // initialize user data in the main menu views
     
     func initUserDataView(){
@@ -109,7 +105,7 @@ class HomeViewController: UIViewController {
     }
     
     
-    // Views user data. Storing data in user defaults is not necessary since they are automatically cahced by firestore
+    // Views user data. Storing data in user defaults is not necessary since they are automatically cached by firestore
     func viewUserData(){
         if userData != nil{
             
@@ -137,9 +133,9 @@ class HomeViewController: UIViewController {
                     print(petType)
                 }
                 
-                if let lastPlayed = pet[FirebaseKeys.LAST_PLAYED] as? Timestamp{
-                    print(lastPlayed)
-                }
+                //if let lastPlayed = pet[FirebaseKeys.LAST_PLAYED] as? Timestamp{
+                //    print(lastPlayed )
+                //}
                 
                 if let lastFed = pet[FirebaseKeys.LAST_FED] as? Timestamp{
                     print(lastFed)
@@ -157,7 +153,6 @@ class HomeViewController: UIViewController {
     // Retrives user data from the firestore database
     func getUserDataFromDB(){
         let db = Firestore.firestore()
-        db.collection
         
         // Retrieve user data
         if let user = Auth.auth().currentUser{
