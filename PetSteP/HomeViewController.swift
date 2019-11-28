@@ -79,23 +79,53 @@ class HomeViewController: UIViewController {
         waterBar.color = .gray
         
         initUserDataView()
+        //updateStepsIfAvailable()
     }
     
+    private let default_steps = 1000;
     func updateStepsIfAvailable() {
         print("attempting to get steps..")
-        print(CMPedometer.isStepCountingAvailable())
+        let db = Firestore.firestore()
         //check if pedometer data is available
         if CMPedometer.isStepCountingAvailable() {
             //get current date (currently gives step for single day)
             let calendar = Calendar.current
+            var docID = ""
             //get pedometer data
             pedometer.queryPedometerData(from: calendar.startOfDay(for: Date()), to: Date()) { (data, error) in
-//                print(data?.numberOfSteps)
                 //set label to pedometer value
                 self.stepsLabel.text = data?.numberOfSteps.stringValue
+                
+                //update value in db
+                if let user = Auth.auth().currentUser{
+                    //get document ID to update value
+                   db.collection("users").whereField("userID", isEqualTo: user.uid).getDocuments() { (querySnapshot, err) in
+                       if let err = err {
+                           print("Error getting documents: \(err)")
+                       } else {
+                           // Loop should run a maximum of one time
+                           print(querySnapshot!.documents)
+                           for document in querySnapshot!.documents {
+                            docID = document.documentID
+                           }
+                       }
+                   }
+                    //use document ID to update total steps whenever view is loaded.
+                    db.collection("users").document(docID).updateData([
+                        "totalSteps" : data?.numberOfSteps.stringValue as Any
+                    ])
+                
+                }
+                
+                
             }
+        } else{
+            self.stepsLabel.text = String(default_steps)
         }
+  
     }
+    
+   
     
     // initialize user data in the main menu views
     
@@ -104,9 +134,10 @@ class HomeViewController: UIViewController {
         
     }
     
-    
+
     // Views user data. Storing data in user defaults is not necessary since they are automatically cached by firestore
     func viewUserData(){
+        print("In user Data!***")
         if userData != nil{
             
             if let coins:Int = userData?.get(FirebaseKeys.COINS) as? Int{
@@ -162,7 +193,9 @@ class HomeViewController: UIViewController {
                     print("Error getting documents: \(err)")
                 } else {
                     // Loop should run a maximum of one time
+                    print(querySnapshot!.documents)
                     for document in querySnapshot!.documents {
+                        print("doc found.")
                         self.userData = document
                         self.viewUserData()
                     }
