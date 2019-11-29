@@ -24,6 +24,8 @@ class StorageViewController: UIViewController, UITableViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "Storage"
 
         // Do any additional setup after loading the view.
         

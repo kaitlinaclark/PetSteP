@@ -35,6 +35,8 @@ class StorageView2ViewController: UIViewController, UICollectionViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Storage"
+        
         // Do any additional setup after loading the view.
         setupCollectionView()
         getAllStorageItems()

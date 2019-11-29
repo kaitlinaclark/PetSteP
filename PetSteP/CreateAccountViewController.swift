@@ -8,7 +8,6 @@
 import UIKit
 import FirebaseAuth
 import FirebaseFirestore
-import Firebase
 
 class CreateAccountViewController: UIViewController {
 
@@ -38,11 +37,11 @@ class CreateAccountViewController: UIViewController {
                                  print("Fetching collection for \(user.uid)")
                                  var ref: DocumentReference? = nil
                                  ref = db.collection("users").addDocument(data: [
-                                  "coins": "0",
+                                  "coins": 0,
                                   "username": self!.newEmail.text!,
                                   //UKI HERE IS WHERE WE NEED TO ENTER THE PICKER'S VALUE BELOW FOR PET: ****
                                   "pet" : "testPet",
-                                  "totalSteps" : "0",
+                                  "totalSteps" : 0,
                                   "userID" : user.uid,
                                  ]) { err in
                                      if let err = err {
@@ -57,6 +56,11 @@ class CreateAccountViewController: UIViewController {
         }
     
     }
+    
+    
+    
+    
+    
     
     
     override func viewDidLoad() {

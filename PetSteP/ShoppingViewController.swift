@@ -41,14 +41,20 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
     let CELL_HEIGHT = CGFloat(130)
     let CELL_WIDTH = CGFloat(90)
     
+    var itemSelected:Int = -1
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "Shop"
         
         // Do any additional setup after loading the view.
         setupCollectionView()
         getAllShopItems()
         getMoneyFromUser()
+        
+        
         
         
     }
@@ -100,6 +106,7 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     
+    
  
     
     func getMoneyFromUser(){
@@ -109,7 +116,7 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
         // Retrieve user data
         if let user = Auth.auth().currentUser{
             print("Fetching collection for \(user.uid)")
-            db.collection("users").whereField("userID", isEqualTo: user.uid).getDocuments() { (querySnapshot, err) in
+            db.collection("users").whereField("userID", isEqualTo: user.uid).addSnapshotListener { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
@@ -118,16 +125,13 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
                         if let coins = document.get("coins") as? Int{
                             self.coinsLabel.text = "Coins: \(coins)"
                         }
-                        
-                        
-                        
-                        
                     }
                 }
             }
             
         }
     }
+    
     
     // Function to assing add a document to its respective items list
     func addToItemsList(document: QueryDocumentSnapshot){
@@ -151,8 +155,7 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
             
         }
     }
-    
-    
+
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
@@ -235,41 +238,72 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
                 
                 myCell.contentView.addSubview(message)
             }
-            
-          
-
         }
-        
-        
-        
         myCell.contentView.addSubview(titleLabel)
         myCell.contentView.addSubview(itemImage)
-        
-        
-        
-        
-        
-        
-        
         return myCell
-        
-        
+
     }
     
     @IBAction func onSectionBarChanged(_ sender: Any) {
         collectionView.reloadData()
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        itemSelected = indexPath.item
+        
+        return true
     }
     
     
     
-    /*
+    
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
      // Get the new view controller using segue.destination.
      // Pass the selected object to the new view controller.
+        
+        let displayShopItemViewController = segue.destination as? DisplayShopItemViewController
+        
+        if displayShopItemViewController != nil {
+            
+            // Getting itemName
+            let itemName = getCurrentItemsList()[itemSelected].get("name") as? String
+            let itemSubType = getCurrentItemsList()[itemSelected].get("subtype") as? String
+            let price = getCurrentItemsList()[itemSelected].get("price") as? Int
+
+            let itemDocument = getCurrentItemsList()[itemSelected]
+            
+            if itemDocument != nil{
+                displayShopItemViewController!.itemDocument = itemDocument
+            }
+            
+            if itemSubType != nil{
+                displayShopItemViewController!.theImage = UIImage(named: itemSubType!)
+            }
+            
+            if itemName != nil{
+                displayShopItemViewController!.itemName = itemName
+            }
+            
+            if price != nil{
+                displayShopItemViewController!.itemPrice = price!
+            }
+            
+            
+        }
+        
      }
-     */
+    
+    
+    
+    
+    
+    
+    
+    
     
 }

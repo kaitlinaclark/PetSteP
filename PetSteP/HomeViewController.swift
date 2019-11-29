@@ -188,7 +188,7 @@ class HomeViewController: UIViewController {
         // Retrieve user data
         if let user = Auth.auth().currentUser{
             print("Fetching collection for \(user.uid)")
-            db.collection("users").whereField("userID", isEqualTo: user.uid).getDocuments() { (querySnapshot, err) in
+            db.collection("users").whereField("userID", isEqualTo: user.uid).addSnapshotListener { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
