@@ -520,6 +520,9 @@
                                             <constraint firstItem="R4M-AV-qKt" firstAttribute="top" secondItem="k77-I7-44K" secondAttribute="top" constant="10" id="seL-d5-8Xp"/>
                                             <constraint firstAttribute="bottom" secondItem="vWe-6f-fQ3" secondAttribute="bottom" constant="8" id="yQx-E4-yme"/>
                                         </constraints>
+                                        <connections>
+                                            <segue destination="ULU-tQ-WlW" kind="presentation" id="ZPD-6i-hZO"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -561,12 +564,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sU5-fw-h4T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2530" y="-617"/>
+            <point key="canvasLocation" x="2422" y="-631"/>
         </scene>
-        <!--View Controller-->
+        <!--Display Shop Item View Controller-->
         <scene sceneID="oh0-bL-fhE">
             <objects>
-                <viewController modalPresentationStyle="overCurrentContext" id="ULU-tQ-WlW" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="overCurrentContext" id="ULU-tQ-WlW" customClass="DisplayShopItemViewController" customModule="PetSteP" sceneMemberID="viewController">
                     <view key="view" opaque="NO" contentMode="scaleToFill" id="n17-m9-iup">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -583,7 +586,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nX6-oH-zsh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3487" y="-631"/>
+            <point key="canvasLocation" x="3462" y="-656"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="yR6-ao-czu">
