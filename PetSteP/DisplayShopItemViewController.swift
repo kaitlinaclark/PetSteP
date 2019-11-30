@@ -176,6 +176,7 @@ class DisplayShopItemViewController: UIViewController {
                         let itemSubtype = self.itemDocument?.get(FirebaseKeys.ITEM_SUBTYPE) as? String
                         let itemType = self.itemDocument?.get(FirebaseKeys.ITEM_TYPE) as? String
                         
+                        
                         if(itemName != nil && itemDescription != nil && itemSubtype != nil && itemType != nil){ // If none of the attributes are missing
                             // Getting the user reference in firestore
                             let userRef = db.collection("\(FirebaseKeys.USERS_COLLECTION_NAME)/\(document.documentID)/\(FirebaseKeys.USER_ITEM_COLLECTION_NAME)")
@@ -186,7 +187,8 @@ class DisplayShopItemViewController: UIViewController {
                                     data: [FirebaseKeys.ITEM_NAME : itemName!,
                                            FirebaseKeys.ITEM_TYPE: itemType!,
                                            FirebaseKeys.ITEM_SUBTYPE: itemSubtype!,
-                                           FirebaseKeys.ITEM_DESCRIPTION: itemDescription!
+                                           FirebaseKeys.ITEM_DESCRIPTION: itemDescription!,
+                                           FirebaseKeys.ITEM_PRICE: self.itemPrice
                                     ])
                             }
                             

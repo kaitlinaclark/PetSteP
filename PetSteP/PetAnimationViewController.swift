@@ -1,8 +1,8 @@
 //
-//  HomeViewController.swift
+//  PetAnimationViewController.swift
 //  PetSteP
 //
-//  Created by Kaitlin Clark on 11/9/19.
+//  Created by Uki Malla on 11/29/19.
 //
 
 import UIKit
@@ -14,18 +14,9 @@ import CoreMotion
 
 
 
-class HomeViewController: UIViewController {
-    
+class PetAnimationViewController: UIViewController {
     
     @IBOutlet weak var petNameLabel: UILabel!
-    
-    @IBOutlet weak var harvestCoinsButton: UIButton!
-    
-    @IBOutlet weak var feedButton: UIButton!
-    
-    @IBOutlet weak var stepsLabel: UILabel!
-    
-    @IBOutlet weak var coinsLabel: UILabel!
     
     
     
@@ -38,20 +29,19 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var foodIcon: UIImageView!
     @IBOutlet weak var foodBar: DisplayView!
     
-  
+    
     @IBOutlet weak var hygieneIcon: UIImageView!
     @IBOutlet weak var hygieneBar: DisplayView!
     
     @IBOutlet weak var healthIcon: UIImageView!
     @IBOutlet weak var healthLabel: UILabel!
     
+    var animationItemName:String?
+    
     let defaults = UserDefaults.standard
     
     let STEPS_LABEL = "Steps:"
     let COINS_LABEL = "Coins:"
-    
-    
-    
     
     // For firebase authentication
     var handle:AuthStateDidChangeListenerHandle?
@@ -66,62 +56,27 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        if animationItemName != nil{
+            print("Now using item", animationItemName!)
+        }
+        
         
         initUserDataView()
-        //updateStepsIfAvailable()
     }
+
     
+/* using: https://learnappmaking.com/timer-swift-how-to/ */
     
-    
-    
-    
-    private let default_steps = 1000;
-    
-    
-    func updateStepsIfAvailable() {
-        print("attempting to get steps..")
-        let db = Firestore.firestore()
-        //check if pedometer data is available
-        if CMPedometer.isStepCountingAvailable() {
-            //get current date (currently gives step for single day)
-            let calendar = Calendar.current
-            var docID = ""
-            //get pedometer data
-            pedometer.queryPedometerData(from: calendar.startOfDay(for: Date()), to: Date()) { (data, error) in
-                //set label to pedometer value
-                self.stepsLabel.text = data?.numberOfSteps.stringValue
-                
-                //update value in db
-                if let user = Auth.auth().currentUser{
-                    //get document ID to update value
-                   db.collection("users").whereField("userID", isEqualTo: user.uid).getDocuments() { (querySnapshot, err) in
-                       if let err = err {
-                           print("Error getting documents: \(err)")
-                       } else {
-                           // Loop should run a maximum of one time
-                           print(querySnapshot!.documents)
-                           for document in querySnapshot!.documents {
-                            docID = document.documentID
-                           }
-                       }
-                   }
-                    //use document ID to update total steps whenever view is loaded.
-                    db.collection("users").document(docID).updateData([
-                        "totalSteps" : data?.numberOfSteps.stringValue as Any
-                    ])
-                
-                }
-                
-                
-            }
-        } else{
-            self.stepsLabel.text = String(default_steps)
-        }
   
-    }
+
     
-   
+    
+    
+    
+    
+    
+    
     
     // initialize user data in the main menu views
     
@@ -130,27 +85,17 @@ class HomeViewController: UIViewController {
         
     }
     
-
+    
     // Views user data. Storing data in user defaults is not necessary since they are automatically cached by firestore
     func viewUserData(){
         print("In user Data!***")
         if userData != nil{
             
-            if let coins:Int = userData?.get(FirebaseKeys.COINS) as? Int{
-                coinsLabel.text = String("\(COINS_LABEL) \(coins)")
-            }
-            
-            
-            if let harvestableSteps:Int = userData?.get(FirebaseKeys.HARVESTABLE_STEPS) as? Int{
-                defaults.set(harvestableSteps, forKey: FirebaseKeys.HARVESTABLE_STEPS)
-                stepsLabel.text = String("\(STEPS_LABEL) \(harvestableSteps)")
-            }
-            
             if let totalSteps:Int = userData?.get(FirebaseKeys.COINS) as? Int{
                 defaults.set(totalSteps, forKey: FirebaseKeys.TOTAL_STEPS)
             }
             
-          
+            
             if let pet = userData?.get(FirebaseKeys.PET) as? [String:AnyObject]{
                 if let petName = pet[FirebaseKeys.PET_NAME] as? String{
                     petNameLabel.text = petName
@@ -158,7 +103,7 @@ class HomeViewController: UIViewController {
                 
                 if let petType = pet[FirebaseKeys.PET_TYPE] as? String{
                     print(petType)
-
+                    
                 }
                 
                 // Fetching pet stats data
@@ -185,7 +130,7 @@ class HomeViewController: UIViewController {
                     updateBar(bar: happinessBar, last: lastPlayed!, level: happinessLevel!, color: #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1))
                 }
                 
-
+                
             }else{
                 print("Couldn't parese pet map")
             }
@@ -209,7 +154,7 @@ class HomeViewController: UIViewController {
         bar.animateValue(to: CGFloat(currentLevel))
         
         bar.color = color
-    
+        
     }
     
     
@@ -294,14 +239,7 @@ class HomeViewController: UIViewController {
         
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
+
+
+

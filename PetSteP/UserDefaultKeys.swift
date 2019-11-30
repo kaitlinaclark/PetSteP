@@ -19,14 +19,23 @@ class FirebaseKeys{
     
     public static let LAST_FED = "lastFed"
     public static let LAST_PLAYED = "lastPlayed"
+    public static let LAST_CARE = "lastCare"
+    
+    public static let FOOD_LEVEL = "food"
+    public static let HAPPINESS_LEVEL = "happiness"
+    public static let HYGIENE_LEVEL = "hygiene"
+    
     
     public static let ITEM_NAME = "name"
     public static let ITEM_DESCRIPTION = "description"
     public static let ITEM_SUBTYPE = "subtype"
     public static let ITEM_TYPE = "type"
+    public static let ITEM_PRICE = "price"
     
     public static let USERS_COLLECTION_NAME = "users"
     public static let USER_ITEM_COLLECTION_NAME = "items"
+    
+    public static let USER_ID = "userID"
     
     
     

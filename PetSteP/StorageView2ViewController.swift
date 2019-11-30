@@ -26,6 +26,7 @@ class StorageView2ViewController: UIViewController, UICollectionViewDelegate, UI
     var CARE = "care"
     var FUN = "fun"
     var sectionsList:[String] = []
+    var itemSelected = 0
     
     let TITLE_HEIGHT = CGFloat(40)
     let CELL_HEIGHT = CGFloat(130)
@@ -41,6 +42,9 @@ class StorageView2ViewController: UIViewController, UICollectionViewDelegate, UI
         setupCollectionView()
         getAllStorageItems()
     }
+    
+    
+    
     
     func setupCollectionView(){
         collectionView.delegate = self
@@ -64,6 +68,15 @@ class StorageView2ViewController: UIViewController, UICollectionViewDelegate, UI
         }
     }
     
+    func clearAllItemsList(){
+        print("Clearing List\n")
+        foodList.removeAll()
+        furnitureList.removeAll()
+        careList.removeAll()
+        funList.removeAll()
+    }
+    
+    
     
     // Function to get all items from the firebase and store them in their respective lists
     func getAllStorageItems(){
@@ -76,17 +89,18 @@ class StorageView2ViewController: UIViewController, UICollectionViewDelegate, UI
         // Retrieve user data
         if let user = Auth.auth().currentUser{
             print("Fetching collection for \(user.uid)")
-            db.collection("users").whereField("userID", isEqualTo: user.uid).getDocuments() { (querySnapshot, err) in
+            db.collection("users").whereField("userID", isEqualTo: user.uid).addSnapshotListener { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
                     // Loop should run a maximum of one time
                     for document in querySnapshot!.documents {
-                        // Reteriving all the documents from "storeItems" collection
-                        db.collection("users/\(document.documentID)/items").getDocuments() { (querySnapshot, err) in
+                        // Reteriving all the documents from users/document.documentID/items collection
+                        db.collection("users/\(document.documentID)/items").addSnapshotListener { (querySnapshot, err) in
                             if let err = err {
                                 print("Error getting documents: \(err)")
                             } else {
+                                self.clearAllItemsList()
                                 for document in querySnapshot!.documents {
                                     self.addToItemsList(document: document)
                                 }
@@ -239,15 +253,61 @@ class StorageView2ViewController: UIViewController, UICollectionViewDelegate, UI
     }
     
     
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        itemSelected = indexPath.item
+        
+        return true
+    }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
+
+    
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        
+        
+        let displayStorageItemViewController = segue.destination as? DisplayStorageItemViewController
+        
+        if displayStorageItemViewController != nil {
+            
+            // Getting itemName
+            let itemName = getCurrentItemsList()[itemSelected].get(FirebaseKeys.ITEM_NAME) as? String
+            let itemSubType = getCurrentItemsList()[itemSelected].get(FirebaseKeys.ITEM_SUBTYPE) as? String
+            let price = getCurrentItemsList()[itemSelected].get(FirebaseKeys.ITEM_PRICE) as? Int
+            let type = getCurrentItemsList()[itemSelected].get(FirebaseKeys.ITEM_TYPE) as? String
+            
+            
+            let itemDocument = getCurrentItemsList()[itemSelected]
+            
+            displayStorageItemViewController!.itemDocument = itemDocument
+            
+            
+            if itemSubType != nil{
+                displayStorageItemViewController!.theImage = UIImage(named: itemSubType!)
+                displayStorageItemViewController!.itemSubType = itemSubType
+            }
+            
+            if itemName != nil{
+                displayStorageItemViewController!.itemName = itemName
+            }
+            
+            if price != nil{
+                displayStorageItemViewController!.itemUtility = price!
+            }
+            if type != nil{
+                displayStorageItemViewController!.itemType = type!
+            }
+            
+            
+        }
+        
+        
+    }
+    
+    
+    
 
 }

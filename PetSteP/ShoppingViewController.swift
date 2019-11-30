@@ -277,9 +277,8 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
 
             let itemDocument = getCurrentItemsList()[itemSelected]
             
-            if itemDocument != nil{
-                displayShopItemViewController!.itemDocument = itemDocument
-            }
+            displayShopItemViewController!.itemDocument = itemDocument
+
             
             if itemSubType != nil{
                 displayShopItemViewController!.theImage = UIImage(named: itemSubType!)
