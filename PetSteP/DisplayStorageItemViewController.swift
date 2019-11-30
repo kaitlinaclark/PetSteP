@@ -159,7 +159,11 @@ class DisplayStorageItemViewController: UIViewController {
         let deltaTInHours = (curTime - lastTime) / NUM_SEC_IN_HOURS
         let decay = PetGlobals.DECAY_RATE_PER_HOUR * deltaTInHours
         
-        let currentLevel = (Double(level) - decay)
+        var currentLevel = (Double(level) - decay)
+        
+        if currentLevel < 0{
+            currentLevel = 0
+        }
         
         return currentLevel
     }

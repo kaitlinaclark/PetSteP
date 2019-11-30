@@ -49,8 +49,9 @@ class PetAnimationViewController: UIViewController {
     // Firebase user data object
     var userData:QueryDocumentSnapshot?
     
-    private let activityManager = CMMotionActivityManager()
-    private var pedometer = CMPedometer()
+    var petType:String?
+    
+    
     
     
     
@@ -64,14 +65,27 @@ class PetAnimationViewController: UIViewController {
         
         initUserDataView()
     }
+    
+    
+    /* animateItem()
+     *
+     * animationItemName: String that holds the name of the item that is being used.
+     * petType: String that holds the type of the pet the user has.
+     */
+    func animateItem(){
+        // ===== PUT ALL THE CODE FOR ITEM ANIMATION HERE ====
+        // you may delete the following print blocks
+        
+        if animationItemName != nil{
+            print("Now using item \(animationItemName!)")
+        }
+        if petType != nil{
+            print("Current pet is a \(petType!)")
+        }
+        
 
-    
-/* using: https://learnappmaking.com/timer-swift-how-to/ */
-    
-  
-
-    
-    
+        
+    }
     
     
     
@@ -102,8 +116,7 @@ class PetAnimationViewController: UIViewController {
                 }
                 
                 if let petType = pet[FirebaseKeys.PET_TYPE] as? String{
-                    print(petType)
-                    
+                    self.petType = petType
                 }
                 
                 // Fetching pet stats data
@@ -130,6 +143,7 @@ class PetAnimationViewController: UIViewController {
                     updateBar(bar: happinessBar, last: lastPlayed!, level: happinessLevel!, color: #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1))
                 }
                 
+                animateItem()
                 
             }else{
                 print("Couldn't parese pet map")
