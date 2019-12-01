@@ -141,10 +141,6 @@ class HomeViewController: UIViewController {
             }
             
             
-            if let harvestableSteps:Int = userData?.get(FirebaseKeys.HARVESTABLE_STEPS) as? Int{
-                defaults.set(harvestableSteps, forKey: FirebaseKeys.HARVESTABLE_STEPS)
-                stepsLabel.text = String("\(STEPS_LABEL) \(harvestableSteps)")
-            }
             
             if let totalSteps:Int = userData?.get(FirebaseKeys.COINS) as? Int{
                 defaults.set(totalSteps, forKey: FirebaseKeys.TOTAL_STEPS)
@@ -152,11 +148,11 @@ class HomeViewController: UIViewController {
             
           
             if let pet = userData?.get(FirebaseKeys.PET) as? [String:AnyObject]{
-                if let petName = pet[FirebaseKeys.PET_NAME] as? String{
+                if let petName = pet[FirebaseKeys.NAME] as? String{
                     petNameLabel.text = petName
                 }
                 
-                if let petType = pet[FirebaseKeys.PET_TYPE] as? String{
+                if let petType = pet[FirebaseKeys.TYPE] as? String{
                     print(petType)
 
                 }

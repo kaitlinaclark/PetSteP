@@ -182,7 +182,7 @@ class DisplayShopItemViewController: UIViewController {
                             let userRef = db.collection("\(FirebaseKeys.USERS_COLLECTION_NAME)/\(document.documentID)/\(FirebaseKeys.USER_ITEM_COLLECTION_NAME)")
                             
                             // Adding item to the user's storage
-                            for _ in 0 ... numItems{
+                            for _ in 0 ... (numItems - 1){
                                 userRef.addDocument(
                                     data: [FirebaseKeys.ITEM_NAME : itemName!,
                                            FirebaseKeys.ITEM_TYPE: itemType!,

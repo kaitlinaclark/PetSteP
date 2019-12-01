@@ -98,7 +98,6 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="loginButtonPressed:" destination="oLr-74-HvA" eventType="touchUpInside" id="yTj-6T-vOC"/>
                                     <segue destination="6tU-ig-wRD" kind="show" id="Ay9-Np-50a"/>
                                 </connections>
                             </button>
@@ -1594,10 +1593,15 @@
                         <viewLayoutGuide key="safeArea" id="54A-VN-Jl5"/>
                     </view>
                     <connections>
+                        <outlet property="emailLabel" destination="o2f-yj-Q8D" id="esL-GV-L17"/>
+                        <outlet property="nameLabel" destination="W3w-Ry-KRT" id="c12-2X-m87"/>
                         <outlet property="newEmail" destination="TFp-Gr-6jC" id="ECd-Cm-uaL"/>
                         <outlet property="newPassword" destination="JgW-x8-JXw" id="Mfa-Nf-Aja"/>
                         <outlet property="newPet" destination="Swl-db-SVi" id="ndw-TB-8LZ"/>
                         <outlet property="newUsername" destination="jdP-Ei-dBJ" id="f2y-FW-mzg"/>
+                        <outlet property="passwordLabel" destination="6zo-UG-Nqd" id="Ju6-3j-ORF"/>
+                        <outlet property="petLabel" destination="IIb-5D-kgG" id="6MQ-Hi-B3d"/>
+                        <outlet property="submitButton" destination="jVj-Uj-xrr" id="PcC-Do-k7e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vNt-0d-Sc7" userLabel="First Responder" sceneMemberID="firstResponder"/>

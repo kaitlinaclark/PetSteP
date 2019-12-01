@@ -111,11 +111,11 @@ class PetAnimationViewController: UIViewController {
             
             
             if let pet = userData?.get(FirebaseKeys.PET) as? [String:AnyObject]{
-                if let petName = pet[FirebaseKeys.PET_NAME] as? String{
+                if let petName = pet[FirebaseKeys.NAME] as? String{
                     petNameLabel.text = petName
                 }
                 
-                if let petType = pet[FirebaseKeys.PET_TYPE] as? String{
+                if let petType = pet[FirebaseKeys.TYPE] as? String{
                     self.petType = petType
                 }
                 

@@ -19,7 +19,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
     
     let USRNAME_REGX = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
     //  let PASS_REGX = "^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$"
-    let MIN_PASS_LEN = 4
+    let MIN_PASS_LEN = 6
     
     
     override func viewDidLoad() {
@@ -79,6 +79,10 @@ class ViewController: UIViewController, UITextFieldDelegate{
                 // Login was not successful
                 strongSelf.toggleUI(display: true)
                 //TODO: Display login message
+                let alert = UIAlertController(title: "Login Error", message: error!.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                strongSelf.present(alert, animated:true)
+
             }
         }
         
@@ -134,7 +138,15 @@ class ViewController: UIViewController, UITextFieldDelegate{
                 if username.range(of: USRNAME_REGX, options: .regularExpression) != nil{
                     if password.count >= MIN_PASS_LEN {
                         return true;
+                    }else{
+                        let alert = UIAlertController(title: "Invalid Password", message: "Please enter a password that is at least \(MIN_PASS_LEN) characters long.", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                        present(alert, animated:true)
                     }
+                }else{
+                    let alert = UIAlertController(title: "Invalid Username", message: "Please enter the email address that you used to register for an acount.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    present(alert, animated:true)
                 }
             }
         }
