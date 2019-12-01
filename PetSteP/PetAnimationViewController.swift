@@ -41,6 +41,8 @@ class PetAnimationViewController: UIViewController {
     @IBOutlet weak var frame: UIImageView!
     @IBOutlet weak var carpet: UIImageView!
     
+    @IBOutlet weak var petImageView: UIImageView!
+    
     var animationItemName:String?
     
     let defaults = UserDefaults.standard
@@ -137,11 +139,14 @@ class PetAnimationViewController: UIViewController {
             
             if let pet = userData?.get(FirebaseKeys.PET) as? [String:AnyObject]{
                 if let petName = pet[FirebaseKeys.NAME] as? String{
-                    petNameLabel.text = petName
+                    petNameLabel.text = petName.capitalized
                 }
                 
                 if let petType = pet[FirebaseKeys.TYPE] as? String{
                     self.petType = petType
+                    petImageView.image = UIImage(named: petType)
+                }else{
+                    petImageView.image = nil
                 }
                 
                 // Fetching pet stats data

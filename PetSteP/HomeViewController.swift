@@ -20,6 +20,7 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var stepsLabel: UILabel!
     
+    @IBOutlet weak var daysAliveLabel: UILabel!
     @IBOutlet weak var coinsLabel: UILabel!
     
     //NO IMAGE VIEW FOR PET IMAGE YET
@@ -40,10 +41,17 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var frame: UIImageView!
     @IBOutlet weak var carpet: UIImageView!
     
+    @IBOutlet weak var petImageView: UIImageView!
+    
     let defaults = UserDefaults.standard
     
-    let STEPS_LABEL = "Steps:"
+    let STEPS_LABEL = "Today's step count:"
     let COINS_LABEL = "Coins:"
+    let DAYS_ALIVE_PRE_TEXT = "Days Alive: "
+
+    
+    
+    var petHealthChecked = false
     
     // For firebase authentication
     var handle:AuthStateDidChangeListenerHandle?
@@ -148,7 +156,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func onPressHarvestCoins(_ sender: Any) {
-                updateStepsIfAvailable(harvestSteps: true)
+        updateStepsIfAvailable(harvestSteps: true)
     }
     
     
@@ -160,6 +168,10 @@ class HomeViewController: UIViewController {
             
             if let coins:Int = userData?.get(FirebaseKeys.COINS) as? Int{
                 coinsLabel.text = String("\(COINS_LABEL) \(coins)")
+            }
+            
+            if let petBirthday = userData?.get(FirebaseKeys.PET_BIRTHDAY) as? Timestamp{
+                daysAliveLabel.text = DAYS_ALIVE_PRE_TEXT + String(numDaysAlive(birthday:  petBirthday))
             }
             
             if let lampPosition = userData?.get(FirebaseKeys.LAMP_POSITION) as? String{
@@ -175,7 +187,7 @@ class HomeViewController: UIViewController {
             }
             
             if let framePosition = userData?.get(FirebaseKeys.FRAME_POSITION) as? String{
-               frame.image = UIImage(named: framePosition)
+                frame.image = UIImage(named: framePosition)
             }else{
                 frame.image = nil
             }
@@ -189,12 +201,13 @@ class HomeViewController: UIViewController {
             
             if let pet = userData?.get(FirebaseKeys.PET) as? [String:AnyObject]{
                 if let petName = pet[FirebaseKeys.NAME] as? String{
-                    petNameLabel.text = petName
+                    petNameLabel.text = petName.capitalized
                 }
                 
                 if let petType = pet[FirebaseKeys.TYPE] as? String{
-                    print(petType)
-                    
+                    petImageView.image = UIImage(named: petType)
+                }else{
+                    petImageView.image = nil
                 }
                 
                 // Fetching pet stats data
@@ -221,6 +234,16 @@ class HomeViewController: UIViewController {
                     updateBar(bar: happinessBar, last: lastPlayed!, level: happinessLevel!, color: #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1))
                 }
                 
+                // Checking if the pet is dead
+                if !petHealthChecked{
+                    if (happinessBar.value <= 0 || hygieneBar.value <= 0 || foodBar.value <= 0){
+                        petHealthChecked = true
+                        deadPetRoutine()
+                    }
+                }
+                
+                
+                
                 
             }else{
                 print("Couldn't parese pet map")
@@ -230,6 +253,67 @@ class HomeViewController: UIViewController {
             print("User data is nil")
         }
     }
+    
+    func deadPetRoutine(){
+        
+        updateDBWithNewPet()
+        
+        // Alert User
+        let alert = UIAlertController(title: "\(petNameLabel.text!) pet is dead.", message: "Your pet just died! Please take better care of your new pet.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true)
+        
+    }
+    
+    func numDaysAlive(birthday:Timestamp) -> Int{
+        
+        let NUM_SEC_IN_HOURS:Double = 60 * 60
+        let NUM_HOURS_IN_DAYS = 24
+        
+        let curTime = TimeInterval(NSDate().timeIntervalSince1970)
+        let lastTime = TimeInterval(birthday.seconds)
+        let deltaTInHours = (curTime - lastTime) / NUM_SEC_IN_HOURS
+        
+        return Int(deltaTInHours / Double(NUM_HOURS_IN_DAYS))
+    }
+    
+    func updateDBWithNewPet(){
+       
+        
+        
+        
+        let db = Firestore.firestore()
+        if let user = Auth.auth().currentUser{
+            db.collection(FirebaseKeys.USERS_COLLECTION_NAME).whereField(FirebaseKeys.USER_ID, isEqualTo: user.uid).getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    // Loop should run a maximum of one time
+                    for document in querySnapshot!.documents {
+                        
+                        let docRef = db
+                            .collection(FirebaseKeys.USERS_COLLECTION_NAME)
+                            .document(document.documentID)
+                        docRef.updateData([FirebaseKeys.PET_BIRTHDAY         : FieldValue.serverTimestamp(),
+                                           FirebaseKeys.PET_LAST_FED         : FieldValue.serverTimestamp(),
+                                           FirebaseKeys.PET_LAST_CARE        : FieldValue.serverTimestamp(),
+                                           FirebaseKeys.PET_LAST_PLAYED      : FieldValue.serverTimestamp(),
+                                           FirebaseKeys.PET_FOOD_LEVEL       : PetGlobals.MAX_LEVEL,
+                                           FirebaseKeys.PET_HYGIENE_LEVEL    : PetGlobals.MAX_LEVEL,
+                                           FirebaseKeys.PET_HAPPINESS_LEVEL  : PetGlobals.MAX_LEVEL] )
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
     func updateBar(bar:DisplayView, last:Timestamp, level:Double, color:UIColor){
         let NUM_SEC_IN_HOURS:Double = 60 * 60
@@ -244,10 +328,6 @@ class HomeViewController: UIViewController {
         
         bar.color = color
     }
-    
-    
-    
-    
     
     
     
@@ -273,9 +353,6 @@ class HomeViewController: UIViewController {
             }
         }
     }
-    
-    
-    
     
     
     override func viewWillAppear(_ animated: Bool) {

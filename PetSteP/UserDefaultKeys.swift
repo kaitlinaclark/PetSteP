@@ -13,6 +13,8 @@ class FirebaseKeys{
     public static let LAST_HARVESTED_DATE = "lastHarvested"
     public static let LAST_HARVESTED_AMOUNT = "lastHarvestedAmount"
     public static let TOTAL_STEPS = "totalSteps"
+    
+    public static let NUMBER_OF_VISITS = "numberOfVisits"
 
 
     public static let PET = "pet"
@@ -25,6 +27,7 @@ class FirebaseKeys{
     public static let FOOD_LEVEL = "food"
     public static let HAPPINESS_LEVEL = "happiness"
     public static let HYGIENE_LEVEL = "hygiene"
+    public static let BIRTHDAY = "birthday"
     
     public static let PET_NAME = "\(PET).name"
     public static let PET_TYPE = "\(PET).petype"
@@ -34,6 +37,7 @@ class FirebaseKeys{
     public static let PET_FOOD_LEVEL = "\(PET).food"
     public static let PET_HAPPINESS_LEVEL = "\(PET).happiness"
     public static let PET_HYGIENE_LEVEL = "\(PET).hygiene"
+    public static let PET_BIRTHDAY = "\(PET).birthday"
     
     
 
@@ -58,6 +62,7 @@ class FirebaseKeys{
     public static let USER_ID = "userID"
     public static let USERNAME = "username"
     public static let NAME_OF_USER = "nameOfUser"
+    
     
     
     

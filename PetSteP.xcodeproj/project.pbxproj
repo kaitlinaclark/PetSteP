@@ -22,6 +22,7 @@
 		0B59B0B123777E38004DFAB6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B59B0B023777E38004DFAB6 /* SettingsViewController.swift */; };
 		0B59B0B32377801E004DFAB6 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B59B0B22377801E004DFAB6 /* HomeViewController.swift */; };
 		9C796F59446DBC62C091882E /* Pods_PetSteP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 931B6C670770F4AE96D77293 /* Pods_PetSteP.framework */; };
+		A75A55A62394383D008FD26B /* FriendRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75A55A52394383D008FD26B /* FriendRoomViewController.swift */; };
 		A77EA73A2390AEF5008CE43D /* DisplayShopItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EA7392390AEF5008CE43D /* DisplayShopItemViewController.swift */; };
 		A7A9E1722391EB8E008F1DBD /* DisplayStorageItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A9E1712391EB8E008F1DBD /* DisplayStorageItemViewController.swift */; };
 		A7AD0E59237C926400B06BA2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A7AD0E58237C926400B06BA2 /* GoogleService-Info.plist */; };
@@ -72,6 +73,7 @@
 		0B59B0B22377801E004DFAB6 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		64A8FB30835A980951B4EFB3 /* Pods-PetSteP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetSteP.release.xcconfig"; path = "Target Support Files/Pods-PetSteP/Pods-PetSteP.release.xcconfig"; sourceTree = "<group>"; };
 		931B6C670770F4AE96D77293 /* Pods_PetSteP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PetSteP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A75A55A52394383D008FD26B /* FriendRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRoomViewController.swift; sourceTree = "<group>"; };
 		A77EA7392390AEF5008CE43D /* DisplayShopItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayShopItemViewController.swift; sourceTree = "<group>"; };
 		A7A9E1712391EB8E008F1DBD /* DisplayStorageItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayStorageItemViewController.swift; sourceTree = "<group>"; };
 		A7AD0E58237C926400B06BA2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				A7A9E1712391EB8E008F1DBD /* DisplayStorageItemViewController.swift */,
 				A7FA483D2392064E009DE85D /* PetGlobals.swift */,
 				A7FA483F23923A03009DE85D /* PetAnimationViewController.swift */,
+				A75A55A52394383D008FD26B /* FriendRoomViewController.swift */,
 			);
 			path = PetSteP;
 			sourceTree = "<group>";
@@ -369,6 +372,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A75A55A62394383D008FD26B /* FriendRoomViewController.swift in Sources */,
 				D890F538238B873A00DFF236 /* CreateAccountViewController.swift in Sources */,
 				A7CD053E2383345200BA1028 /* UserDefaultKeys.swift in Sources */,
 				0B59B0A723776177004DFAB6 /* DisplayView.swift in Sources */,

@@ -111,6 +111,7 @@ class CreateAccountViewController: UIViewController, UIPickerViewDelegate, UIPic
                     
                     let petObj =  [FirebaseKeys.TYPE             : self.pet[self.newPet.selectedRow(inComponent: 0)].lowercased(),
                                    FirebaseKeys.NAME             : self.pet[self.newPet.selectedRow(inComponent: 0)],
+                                   FirebaseKeys.BIRTHDAY         : FieldValue.serverTimestamp(),
                                    FirebaseKeys.LAST_FED         : FieldValue.serverTimestamp(),
                                    FirebaseKeys.LAST_CARE        : FieldValue.serverTimestamp(),
                                    FirebaseKeys.LAST_PLAYED      : FieldValue.serverTimestamp(),
@@ -120,12 +121,13 @@ class CreateAccountViewController: UIViewController, UIPickerViewDelegate, UIPic
                     
                     var ref: DocumentReference? = nil
                     ref = db.collection(FirebaseKeys.USERS_COLLECTION_NAME).addDocument(data: [
-                        FirebaseKeys.NAME_OF_USER         : self.newUsername.text!,
+                        FirebaseKeys.NAME_OF_USER         : self.newUsername.text!.lowercased(),
                         FirebaseKeys.USER_ID              : user.uid,
                         FirebaseKeys.TOTAL_STEPS          : 0,
                         FirebaseKeys.COINS                : 10000,
                         FirebaseKeys.LAST_HARVESTED_AMOUNT: 0,
                         FirebaseKeys.LAST_HARVESTED_DATE  : FieldValue.serverTimestamp(),
+                        FirebaseKeys.NUMBER_OF_VISITS     : 0,
                         FirebaseKeys.PET                  : petObj
                     ]) { err in
                         if let err = err {

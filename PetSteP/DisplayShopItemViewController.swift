@@ -222,7 +222,7 @@ class DisplayShopItemViewController: UIViewController {
                         let userRef = db.collection("users").document("\(document.documentID)")
                         let totalPrice = decreaseAmount
                         userRef.updateData([
-                            "coins": FieldValue.increment(Int64(-totalPrice))
+                            FirebaseKeys.COINS : FieldValue.increment(Int64(-totalPrice))
                             ])
                     }
                 }
