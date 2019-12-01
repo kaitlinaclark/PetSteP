@@ -45,6 +45,13 @@ class FirebaseKeys{
     public static let ITEM_TYPE = "type"
     public static let ITEM_PRICE = "price"
     
+    public static let ITEM_POSITION = "position"
+    public static let LAMP_POSITION = "lamp"
+    public static let CARPET_POSITION = "carpet"
+    public static let FRAME_POSITION = "frame"
+    public static let TABLE_POSITION = "table"
+    
+    
     public static let USERS_COLLECTION_NAME = "users"
     public static let USER_ITEM_COLLECTION_NAME = "items"
     

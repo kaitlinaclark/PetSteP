@@ -417,9 +417,11 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="carpet" destination="e4m-IB-VCd" id="e0P-M1-B0N"/>
                         <outlet property="coinsLabel" destination="HeB-uh-esE" id="5mb-zu-75q"/>
                         <outlet property="foodBar" destination="0q6-Ec-vUp" id="ToO-cu-EW4"/>
                         <outlet property="foodIcon" destination="bvc-Zo-QuT" id="QzA-5z-kMK"/>
+                        <outlet property="frame" destination="OIg-VO-kko" id="Kbu-S3-myv"/>
                         <outlet property="happinessBar" destination="Yo8-UI-aeo" id="FdX-kV-njr"/>
                         <outlet property="happinessIcon" destination="Kdf-kO-sUc" id="CaE-AK-hmd"/>
                         <outlet property="harvestCoinsButton" destination="VF1-pp-wkV" id="Zlg-vh-ITQ"/>
@@ -427,8 +429,10 @@
                         <outlet property="healthLabel" destination="WsL-KK-Nij" id="2sr-Tg-KBD"/>
                         <outlet property="hygieneBar" destination="pjr-D7-I13" id="30j-tn-Dw8"/>
                         <outlet property="hygieneIcon" destination="f6h-A6-uCH" id="JdL-B0-06b"/>
+                        <outlet property="lamp" destination="kvW-Mn-3Kb" id="qK7-Vm-oLo"/>
                         <outlet property="petNameLabel" destination="VKE-kP-ace" id="xTg-5w-MmS"/>
                         <outlet property="stepsLabel" destination="stH-mz-0tR" id="s6t-x1-srg"/>
+                        <outlet property="table" destination="pWO-pZ-brt" id="lqP-9g-CCH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zW6-HZ-G1b" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1655,7 +1659,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IQ8-TO-mvq">
-                                            <rect key="frame" x="110" y="189" width="30" height="30"/>
+                                            <rect key="frame" x="103" y="189" width="54" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Use"/>
                                             <connections>
@@ -1679,6 +1683,7 @@
                         <outlet property="theView" destination="oRL-rr-9DW" id="fhb-Fc-wCW"/>
                         <outlet property="theViewEffect" destination="kaT-Gc-bKN" id="rwk-Rf-tLX"/>
                         <outlet property="utilityLabel" destination="BH0-IW-qGx" id="VBP-RP-CHn"/>
+                        <outlet property="utilityTitleLabel" destination="rsf-th-mHn" id="ASO-Bu-IOJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1c3-kL-WUg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1873,15 +1878,19 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="carpet" destination="F1X-XV-7L7" id="gIi-kA-L3m"/>
                         <outlet property="foodBar" destination="p00-oh-apA" id="cpT-Hb-CVg"/>
                         <outlet property="foodIcon" destination="opM-zc-3tj" id="0Jn-OG-Tm9"/>
+                        <outlet property="frame" destination="7Vd-Z7-URH" id="AkW-yk-Nep"/>
                         <outlet property="happinessBar" destination="T8c-us-EZ3" id="Qp8-7C-wFD"/>
                         <outlet property="happinessIcon" destination="oyT-Fp-kPk" id="gEW-v5-Wdo"/>
                         <outlet property="healthIcon" destination="O78-S8-wfC" id="bqn-GA-pW3"/>
                         <outlet property="healthLabel" destination="UPe-Kx-JfX" id="VjN-4E-pqt"/>
                         <outlet property="hygieneBar" destination="H78-Mi-0jT" id="5sQ-xl-Jfl"/>
                         <outlet property="hygieneIcon" destination="sk9-2y-U4y" id="ewT-uJ-02i"/>
+                        <outlet property="lamp" destination="o0G-0b-ODC" id="bc1-ZX-jG6"/>
                         <outlet property="petNameLabel" destination="XSD-Ry-c9V" id="FK1-pF-8kZ"/>
+                        <outlet property="table" destination="8aA-fy-k4l" id="cml-9k-lKu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ukc-5c-jpZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1892,7 +1901,7 @@
     <resources>
         <image name="apple" width="42.666667938232422" height="42.666667938232422"/>
         <image name="duck" width="256" height="256"/>
-        <image name="greenLamp" width="100" height="250"/>
+        <image name="greenLamp" width="33.333332061767578" height="83.333335876464844"/>
         <image name="greenRug" width="250" height="100"/>
         <image name="heartPainting" width="80" height="80"/>
         <image name="table" width="50" height="50"/>

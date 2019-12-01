@@ -35,6 +35,11 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var healthIcon: UIImageView!
     @IBOutlet weak var healthLabel: UILabel!
     
+    @IBOutlet weak var lamp: UIImageView!
+    @IBOutlet weak var table: UIImageView!
+    @IBOutlet weak var frame: UIImageView!
+    @IBOutlet weak var carpet: UIImageView!
+    
     let defaults = UserDefaults.standard
     
     let STEPS_LABEL = "Steps:"
@@ -157,10 +162,28 @@ class HomeViewController: UIViewController {
                 coinsLabel.text = String("\(COINS_LABEL) \(coins)")
             }
             
+            if let lampPosition = userData?.get(FirebaseKeys.LAMP_POSITION) as? String{
+                lamp.image = UIImage(named: lampPosition)
+            }else{
+                lamp.image = nil
+            }
             
+            if let carpetPosition = userData?.get(FirebaseKeys.CARPET_POSITION) as? String{
+                carpet.image = UIImage(named: carpetPosition)
+            }else{
+                carpet.image = nil
+            }
             
-            if let totalSteps:Int = userData?.get(FirebaseKeys.COINS) as? Int{
-                defaults.set(totalSteps, forKey: FirebaseKeys.TOTAL_STEPS)
+            if let framePosition = userData?.get(FirebaseKeys.FRAME_POSITION) as? String{
+               frame.image = UIImage(named: framePosition)
+            }else{
+                frame.image = nil
+            }
+            
+            if let tablePosition = userData?.get(FirebaseKeys.TABLE_POSITION) as? String{
+                table.image = UIImage(named: tablePosition)
+            }else{
+                table.image = nil
             }
             
             

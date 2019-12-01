@@ -176,6 +176,18 @@ class DisplayShopItemViewController: UIViewController {
                         let itemSubtype = self.itemDocument?.get(FirebaseKeys.ITEM_SUBTYPE) as? String
                         let itemType = self.itemDocument?.get(FirebaseKeys.ITEM_TYPE) as? String
                         
+                        var data = [FirebaseKeys.ITEM_NAME : itemName!,
+                                FirebaseKeys.ITEM_TYPE: itemType!,
+                                FirebaseKeys.ITEM_SUBTYPE: itemSubtype!,
+                                FirebaseKeys.ITEM_DESCRIPTION: itemDescription!,
+                                FirebaseKeys.ITEM_PRICE: self.itemPrice
+                            ]  as [String : Any]
+                        
+                        if let itemPosition = self.itemDocument?.get(FirebaseKeys.ITEM_POSITION) as? String{
+                            data[FirebaseKeys.ITEM_POSITION] = itemPosition
+                        }
+                        
+                        
                         
                         if(itemName != nil && itemDescription != nil && itemSubtype != nil && itemType != nil){ // If none of the attributes are missing
                             // Getting the user reference in firestore
@@ -184,12 +196,7 @@ class DisplayShopItemViewController: UIViewController {
                             // Adding item to the user's storage
                             for _ in 0 ... (numItems - 1){
                                 userRef.addDocument(
-                                    data: [FirebaseKeys.ITEM_NAME : itemName!,
-                                           FirebaseKeys.ITEM_TYPE: itemType!,
-                                           FirebaseKeys.ITEM_SUBTYPE: itemSubtype!,
-                                           FirebaseKeys.ITEM_DESCRIPTION: itemDescription!,
-                                           FirebaseKeys.ITEM_PRICE: self.itemPrice
-                                    ])
+                                    data: data)
                             }
                             
                         }

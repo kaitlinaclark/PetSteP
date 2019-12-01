@@ -34,6 +34,7 @@ class DisplayStorageItemViewController: UIViewController {
     var itemType:String?
     var itemSubType:String?
     
+    @IBOutlet weak var utilityTitleLabel: UILabel!
     var FOOD = "food"
     var FURNITURE = "furniture"
     var CARE = "care"
@@ -60,7 +61,10 @@ class DisplayStorageItemViewController: UIViewController {
         theViewEffect.layer.cornerRadius = 10
         
         if itemType == FURNITURE{
-            actionButton.titleLabel?.text = FURNITURE_ACTION_BUTTON_LABEL
+            actionButton.setTitle(FURNITURE_ACTION_BUTTON_LABEL, for: .normal) 
+            utilityLabel.isHidden = true
+            utilityTitleLabel.isHidden = true
+            
         }
         
     }
@@ -74,28 +78,67 @@ class DisplayStorageItemViewController: UIViewController {
     @IBAction func useItem(_ sender: Any) {
         actionButton.isHidden = true
         if itemType != FURNITURE{
-            viewAnimation()
+            viewAnimation(completionTask: performItemUse)
+        }else{
+            viewAnimation(completionTask: performItemEquip)
         }
         
     }
     
     
     
-    func viewAnimation(){
+    func viewAnimation(completionTask: @escaping ()->Void){
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let petAnimVC = storyBoard.instantiateViewController(withIdentifier: "PetAnimationVC")
         petAnimVC.modalPresentationStyle = .fullScreen
-        present(petAnimVC, animated: true, completion: performItemTasks)
+        present(petAnimVC, animated: true, completion: completionTask)
         
         
     }
     
+    func performItemEquip(){
+        let db = Firestore.firestore()
+        if let user = Auth.auth().currentUser{
+            db.collection("users").whereField("userID", isEqualTo: user.uid).getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    // Loop should run a maximum of one time
+                    for document in querySnapshot!.documents {
+                        // Getting items attributes from the itemDocument
+                        if self.itemDocument != nil{
+                            let docRef = db.collection(FirebaseKeys.USERS_COLLECTION_NAME).document(document.documentID)
+                            let itemPosition = self.itemDocument!.get(FirebaseKeys.ITEM_POSITION) as? String
+                            if itemPosition != nil && self.itemSubType != nil{
+                                print("Equiping Item")
+                                docRef.updateData([itemPosition!: self.itemSubType! ]){ err in
+                                    if let err = err {
+                                        print("Error writing document: \(err)")
+                                    } else {
+                                        print("Document successfully written!")
+                                    }
+                                }
+                            }else{
+                                print(itemPosition)
+                                print(self.itemSubType)
+                            }
+                        }
+                    }
+                }
+                
+            }
+            
+        }
+        initTimer()
+    }
     
     
-    func performItemTasks(){
+    
+    
+    func performItemUse(){
         applyItem()
         removeItemFromStorage()
-
+        
     }
     
     
@@ -113,8 +156,8 @@ class DisplayStorageItemViewController: UIViewController {
     
     @objc func fire()
     {
-        closeView()
-        closeView()
+        closeView() // Closing the animation view
+        closeView() // Closing self
     }
     
     
@@ -270,7 +313,7 @@ class DisplayStorageItemViewController: UIViewController {
         
         if petAnimVC != nil {
             petAnimVC!.animationItemName = itemSubType
-
+            
         }
         
         
