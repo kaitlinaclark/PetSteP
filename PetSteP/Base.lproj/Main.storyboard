@@ -318,14 +318,12 @@
                                                 <rect key="frame" x="0.0" y="38" width="389" height="36"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VF1-pp-wkV">
-                                                        <rect key="frame" x="0.0" y="0.0" width="122" height="36"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="389" height="36"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                         <state key="normal" title="Harvest Coins"/>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5C6-HW-P9D">
-                                                        <rect key="frame" x="345" y="0.0" width="44" height="36"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                        <state key="normal" title="Feed"/>
+                                                        <connections>
+                                                            <action selector="onPressHarvestCoins:" destination="46e-1E-32x" eventType="touchUpInside" id="e7d-am-ufv"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -420,7 +418,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="coinsLabel" destination="HeB-uh-esE" id="5mb-zu-75q"/>
-                        <outlet property="feedButton" destination="5C6-HW-P9D" id="Bab-UX-Xvl"/>
                         <outlet property="foodBar" destination="0q6-Ec-vUp" id="ToO-cu-EW4"/>
                         <outlet property="foodIcon" destination="bvc-Zo-QuT" id="QzA-5z-kMK"/>
                         <outlet property="happinessBar" destination="Yo8-UI-aeo" id="FdX-kV-njr"/>

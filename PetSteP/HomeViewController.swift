@@ -12,33 +12,23 @@ import Firebase
 
 import CoreMotion
 
-
-
 class HomeViewController: UIViewController {
-    
     
     @IBOutlet weak var petNameLabel: UILabel!
     
     @IBOutlet weak var harvestCoinsButton: UIButton!
     
-    @IBOutlet weak var feedButton: UIButton!
-    
     @IBOutlet weak var stepsLabel: UILabel!
     
     @IBOutlet weak var coinsLabel: UILabel!
-    
-    
-    
     
     //NO IMAGE VIEW FOR PET IMAGE YET
     @IBOutlet weak var happinessIcon: UIImageView!
     @IBOutlet weak var happinessBar: DisplayView!
     
-    
     @IBOutlet weak var foodIcon: UIImageView!
     @IBOutlet weak var foodBar: DisplayView!
     
-  
     @IBOutlet weak var hygieneIcon: UIImageView!
     @IBOutlet weak var hygieneBar: DisplayView!
     
@@ -50,9 +40,6 @@ class HomeViewController: UIViewController {
     let STEPS_LABEL = "Steps:"
     let COINS_LABEL = "Coins:"
     
-    
-    
-    
     // For firebase authentication
     var handle:AuthStateDidChangeListenerHandle?
     
@@ -62,66 +49,70 @@ class HomeViewController: UIViewController {
     private let activityManager = CMMotionActivityManager()
     private var pedometer = CMPedometer()
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
         initUserDataView()
-        //updateStepsIfAvailable()
+        updateStepsIfAvailable(harvestSteps: false)
     }
-    
-    
-    
-    
     
     private let default_steps = 1000;
     
-    
-    func updateStepsIfAvailable() {
+    func updateStepsIfAvailable(harvestSteps:Bool) {
         print("attempting to get steps..")
         let db = Firestore.firestore()
         //check if pedometer data is available
         if CMPedometer.isStepCountingAvailable() {
             //get current date (currently gives step for single day)
             let calendar = Calendar.current
-            var docID = ""
             //get pedometer data
             pedometer.queryPedometerData(from: calendar.startOfDay(for: Date()), to: Date()) { (data, error) in
-                //set label to pedometer value
-                self.stepsLabel.text = data?.numberOfSteps.stringValue
                 
                 //update value in db
                 if let user = Auth.auth().currentUser{
                     //get document ID to update value
-                   db.collection("users").whereField("userID", isEqualTo: user.uid).getDocuments() { (querySnapshot, err) in
-                       if let err = err {
-                           print("Error getting documents: \(err)")
-                       } else {
-                           // Loop should run a maximum of one time
-                           print(querySnapshot!.documents)
-                           for document in querySnapshot!.documents {
-                            docID = document.documentID
-                           }
-                       }
-                   }
-                    //use document ID to update total steps whenever view is loaded.
-                    db.collection("users").document(docID).updateData([
-                        "totalSteps" : data?.numberOfSteps.stringValue as Any
-                    ])
-                
+                    db.collection(FirebaseKeys.USERS_COLLECTION_NAME).whereField(FirebaseKeys.USER_ID, isEqualTo: user.uid).getDocuments() { (querySnapshot, err) in
+                        if let err = err {
+                            print("Error getting documents: \(err)")
+                        } else {
+                            // Loop should run a maximum of one time
+                            if let noStepsToday = data?.numberOfSteps as? Int{
+                                for document in querySnapshot!.documents {
+                                    let lastHarvestedDate = document.get(FirebaseKeys.LAST_HARVESTED_DATE) as? Timestamp
+                                    let lastHarvestedAmount = document.get(FirebaseKeys.LAST_HARVESTED_AMOUNT) as? Int
+                                    let coins =  document.get(FirebaseKeys.COINS) as? Int
+                                    var newCoins = 0
+                                    
+                                    if lastHarvestedDate != nil && lastHarvestedAmount != nil{
+                                        if self.isToday(lastHarvestedDate: lastHarvestedDate!){ // Checking if the steps were harvested today
+                                            let harvestableSteps = noStepsToday - lastHarvestedAmount!
+                                            //set label to pedometer value
+                                            self.stepsLabel.text = "\(self.STEPS_LABEL)\(harvestSteps)"
+                                            
+                                            if(harvestSteps){
+                                                // Updating the new coins value
+                                                if coins != nil {
+                                                    newCoins = coins! + (harvestableSteps * PetGlobals.COINS_PER_STEP)
+                                                }
+                                                db.collection(FirebaseKeys.USERS_COLLECTION_NAME)
+                                                    .document(document.documentID)
+                                                    .updateData([
+                                                        FirebaseKeys.LAST_HARVESTED_AMOUNT : harvestableSteps,
+                                                        FirebaseKeys.LAST_HARVESTED_DATE   : FieldValue.serverTimestamp(),
+                                                        FirebaseKeys.COINS                 : newCoins ])
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
                 }
-                
-                
             }
         } else{
-            self.stepsLabel.text = String(default_steps)
+            self.stepsLabel.text = "\(self.STEPS_LABEL)\(default_steps)"
         }
-  
     }
-    
-   
     
     // initialize user data in the main menu views
     
@@ -130,7 +121,33 @@ class HomeViewController: UIViewController {
         
     }
     
-
+    
+    func isToday(lastHarvestedDate:Timestamp) -> Bool{
+        
+        let dateVal = lastHarvestedDate.dateValue()
+        let curTime = Date()
+        
+        let calendar = Calendar.current
+        
+        let day = calendar.component(.day, from: dateVal)
+        let month = calendar.component(.month, from: dateVal)
+        let year = calendar.component(.year, from: dateVal)
+        let lastDateStr = "\(day)/\(month)/\(year)"
+        
+        let curDay = calendar.component(.day, from: curTime) + 1
+        let curMonth = calendar.component(.month, from: curTime)
+        let curYear = calendar.component(.year, from: curTime)
+        let curDateStr = "\(curDay)/\(curMonth)/\(curYear)"
+        
+        return (curDateStr == lastDateStr)
+    }
+    
+    @IBAction func onPressHarvestCoins(_ sender: Any) {
+                updateStepsIfAvailable(harvestSteps: true)
+    }
+    
+    
+    
     // Views user data. Storing data in user defaults is not necessary since they are automatically cached by firestore
     func viewUserData(){
         print("In user Data!***")
@@ -146,7 +163,7 @@ class HomeViewController: UIViewController {
                 defaults.set(totalSteps, forKey: FirebaseKeys.TOTAL_STEPS)
             }
             
-          
+            
             if let pet = userData?.get(FirebaseKeys.PET) as? [String:AnyObject]{
                 if let petName = pet[FirebaseKeys.NAME] as? String{
                     petNameLabel.text = petName
@@ -154,7 +171,7 @@ class HomeViewController: UIViewController {
                 
                 if let petType = pet[FirebaseKeys.TYPE] as? String{
                     print(petType)
-
+                    
                 }
                 
                 // Fetching pet stats data
@@ -181,7 +198,7 @@ class HomeViewController: UIViewController {
                     updateBar(bar: happinessBar, last: lastPlayed!, level: happinessLevel!, color: #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1))
                 }
                 
-
+                
             }else{
                 print("Couldn't parese pet map")
             }
@@ -200,13 +217,11 @@ class HomeViewController: UIViewController {
         
         let currentLevel = (level - decay) / 100
         
-        
-        
         bar.animateValue(to: CGFloat(currentLevel))
         
         bar.color = color
-    
     }
+    
     
     
     

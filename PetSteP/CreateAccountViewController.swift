@@ -109,7 +109,7 @@ class CreateAccountViewController: UIViewController, UIPickerViewDelegate, UIPic
                 //Create a new document with a generated id.
                 if let _ = Auth.auth().currentUser{
                     
-                    let petObj =  [FirebaseKeys.TYPE             : self.pet[self.newPet.selectedRow(inComponent: 0)],
+                    let petObj =  [FirebaseKeys.TYPE             : self.pet[self.newPet.selectedRow(inComponent: 0)].lowercased(),
                                    FirebaseKeys.NAME             : self.pet[self.newPet.selectedRow(inComponent: 0)],
                                    FirebaseKeys.LAST_FED         : FieldValue.serverTimestamp(),
                                    FirebaseKeys.LAST_CARE        : FieldValue.serverTimestamp(),
