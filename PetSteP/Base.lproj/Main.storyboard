@@ -966,9 +966,11 @@
                     </view>
                     <connections>
                         <outlet property="aboutGameText" destination="nLz-zm-IzH" id="LT7-NH-27V"/>
+                        <outlet property="changePasswordButton" destination="qfL-x4-Znf" id="ugV-tF-RQY"/>
                         <outlet property="emailLabel" destination="FDG-Qb-PEJ" id="7ob-cj-p9Y"/>
                         <outlet property="newPassword" destination="hwW-wy-XDT" id="htP-qn-drT"/>
                         <outlet property="oldPassword" destination="9vy-yn-4OY" id="pEt-C8-Xov"/>
+                        <outlet property="passwordView" destination="LAH-ou-uMp" id="RPv-ex-hlP"/>
                         <outlet property="retypePassword" destination="4Bl-tW-05p" id="yNo-hV-Exg"/>
                         <outlet property="visibilitySwitch" destination="JaV-eF-HuM" id="JF3-gE-fc3"/>
                     </connections>
