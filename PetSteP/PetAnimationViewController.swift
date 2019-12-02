@@ -43,6 +43,9 @@ class PetAnimationViewController: UIViewController {
     
     @IBOutlet weak var petImageView: UIImageView!
     
+    @IBOutlet weak var itemView: UIImageView!
+    
+    
     var animationItemName:String?
     
     let defaults = UserDefaults.standard
@@ -82,13 +85,23 @@ class PetAnimationViewController: UIViewController {
     func animateItem(){
         // ===== PUT ALL THE CODE FOR ITEM ANIMATION HERE ====
         // you may delete the following print blocks
-        
+        let item_frames: [UIImage] = []
         if animationItemName != nil{
             print("Now using item \(animationItemName!)")
+            
+            for i in 0...2 {
+                let item = UIImage(contentsOfFile: "\(animationItemName)_000\(i).png")
+            }
+            
+            itemView.animationImages = item_frames
+            itemView.animationDuration = 2.0
+            itemView.animationRepeatCount = 1
+            itemView.startAnimating()
         }
         if petType != nil{
             print("Current pet is a \(petType!)")
         }
+        
         
 
         

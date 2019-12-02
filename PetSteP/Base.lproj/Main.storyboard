@@ -1811,6 +1811,7 @@
                         <outlet property="healthLabel" destination="UPe-Kx-JfX" id="VjN-4E-pqt"/>
                         <outlet property="hygieneBar" destination="H78-Mi-0jT" id="5sQ-xl-Jfl"/>
                         <outlet property="hygieneIcon" destination="sk9-2y-U4y" id="ewT-uJ-02i"/>
+                        <outlet property="itemView" destination="jcv-9N-mIr" id="V9V-HC-Geo"/>
                         <outlet property="lamp" destination="o0G-0b-ODC" id="bc1-ZX-jG6"/>
                         <outlet property="petImageView" destination="N5c-3X-N8x" id="Sl5-SZ-jGl"/>
                         <outlet property="petNameLabel" destination="XSD-Ry-c9V" id="FK1-pF-8kZ"/>
