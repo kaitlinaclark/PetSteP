@@ -95,7 +95,6 @@ class HomeViewController: UIViewController {
                                     let lastHarvestedAmount = document.get(FirebaseKeys.LAST_HARVESTED_AMOUNT) as? Int
                                     let coins =  document.get(FirebaseKeys.COINS) as? Int
                                     var newCoins = 0
-                                    var totalHarvestedToday = 0
                                     print("no steps today")
                                     
                                     if lastHarvestedDate != nil && lastHarvestedAmount != nil{

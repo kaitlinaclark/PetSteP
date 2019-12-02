@@ -222,11 +222,7 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
             if let image = UIImage(named: itemSubType!){
                 
                 itemImage.image = image
-                if image.size.width > image.size.height {
-                    itemImage.contentMode = UIView.ContentMode.scaleAspectFit
-                } else {
-                    itemImage.contentMode = UIView.ContentMode.scaleAspectFill
-                }
+                itemImage.contentMode = UIView.ContentMode.scaleAspectFit
             }else{
                 let message = UILabel(frame: CGRect(x: CGFloat(0), y: CGFloat(0), width: CELL_WIDTH, height: CELL_HEIGHT))
                 message.center = myCell.contentView.center
