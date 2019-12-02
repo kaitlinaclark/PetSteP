@@ -1587,6 +1587,7 @@
                                             <state key="normal" title="Use"/>
                                             <connections>
                                                 <action selector="useItem:" destination="6rJ-4j-uGX" eventType="touchUpInside" id="N8g-lj-tyE"/>
+                                                <segue destination="j6S-kt-tSd" kind="show" id="6SW-qf-ScT"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -1645,7 +1646,7 @@
                                         <rect key="frame" x="118" y="157" width="80" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jcv-9N-mIr">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jcv-9N-mIr">
                                         <rect key="frame" x="118" y="346" width="32" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>

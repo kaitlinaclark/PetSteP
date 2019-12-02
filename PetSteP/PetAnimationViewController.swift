@@ -85,16 +85,18 @@ class PetAnimationViewController: UIViewController {
     func animateItem(){
         // ===== PUT ALL THE CODE FOR ITEM ANIMATION HERE ====
         // you may delete the following print blocks
-        let item_frames: [UIImage] = []
+        var item_frames: [UIImage] = []
         if animationItemName != nil{
             print("Now using item \(animationItemName!)")
             
             for i in 0...2 {
-                let item = UIImage(contentsOfFile: "\(animationItemName)_000\(i).png")
+                let item = UIImage(named: "\(animationItemName!)_000\(i)")
+                print("\(animationItemName!)_000\(i)")
+                item_frames.append(item!)
             }
             
             itemView.animationImages = item_frames
-            itemView.animationDuration = 2.0
+            itemView.animationDuration = 1.5
             itemView.animationRepeatCount = 1
             itemView.startAnimating()
         }

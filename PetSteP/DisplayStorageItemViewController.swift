@@ -53,6 +53,7 @@ class DisplayStorageItemViewController: UIViewController {
     
     func initView(){
         initBlurView()
+        print(itemSubType!)
         theImageView.image = theImage
         itemNameLabel.text = itemName
         utilityLabel.text = "\(itemUtility)\(CURRENCY_STR)"
