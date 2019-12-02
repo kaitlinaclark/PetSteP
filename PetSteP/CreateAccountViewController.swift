@@ -9,7 +9,13 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
-class CreateAccountViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class CreateAccountViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
+UITextFieldDelegate {
+
+//overide func so keybaord goes away when user touches outside of keybaord
+override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    self.view.endEditing(true)
+}
     
     
     
