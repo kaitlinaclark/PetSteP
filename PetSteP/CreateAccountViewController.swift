@@ -31,7 +31,7 @@ class CreateAccountViewController: UIViewController, UIPickerViewDelegate, UIPic
     let USRNAME_REGX = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
     let MIN_PASS_LEN = 6
     
-    var pet = ["Sheep", "Goldfish", "Duck"]
+    var pet = ["Sheep", "Cat", "Duck"]
     
     
     //when user presses submit on new account
