@@ -97,7 +97,11 @@ class DisplayStorageItemViewController: UIViewController {
         
         if animVC != nil {
             animVC!.animationItemName = itemSubType
-            animVC!.itemType = itemType
+            if itemType == FURNITURE {
+                animVC!.isAnimated = false
+            } else {
+                animVC!.isAnimated = true
+            }
             present(animVC!, animated: true, completion: completionTask)
         } else {
             print("PetAnimationVC load error")

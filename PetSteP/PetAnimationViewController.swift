@@ -48,7 +48,7 @@ class PetAnimationViewController: UIViewController {
     
     var animationItemName:String?
     
-
+    var isAnimated = true
     
     let defaults = UserDefaults.standard
     
@@ -88,14 +88,19 @@ class PetAnimationViewController: UIViewController {
         // ===== PUT ALL THE CODE FOR ITEM ANIMATION HERE ====
         // you may delete the following print blocks
         var item_frames: [UIImage] = []
-        if animationItemName != nil {
+        if animationItemName != nil && isAnimated {
             print("Now using item \(animationItemName!)")
-            
-            for i in 0..<PetGlobals.ANIM_FRAMES[animationItemName!]! {
-                let item = UIImage(named: "\(animationItemName!)_000\(i)")
-                print("\(animationItemName!)_000\(i)")
+            let frame_num = PetGlobals.ANIM_FRAMES[animationItemName!]!
+            if frame_num > 1 {
+                for i in 0..<frame_num {
+                    let item = UIImage(named: "\(animationItemName!)_000\(i)")
+                    item_frames.append(item!)
+                }
+            } else {
+                let item = UIImage(named: "\(animationItemName!)")
                 item_frames.append(item!)
             }
+            
             
             itemView.animationImages = item_frames
             itemView.animationDuration = 3.0
