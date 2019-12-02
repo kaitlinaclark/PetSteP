@@ -2126,6 +2126,7 @@
                         <outlet property="foodBar" destination="jad-Un-1tV" id="J3E-jB-77f"/>
                         <outlet property="frame" destination="rDM-DT-RvX" id="N29-St-XV4"/>
                         <outlet property="happinessBar" destination="v5X-J2-weB" id="7L5-OG-HQO"/>
+                        <outlet property="healthLabel" destination="6uU-g2-ap8" id="NlL-7D-sB5"/>
                         <outlet property="hygieneBar" destination="GyA-p8-wio" id="OAw-qv-5po"/>
                         <outlet property="lamp" destination="0k8-5a-Vgw" id="08F-nm-yK1"/>
                         <outlet property="petImageView" destination="Xaa-xu-HKZ" id="NcF-SM-3Kb"/>

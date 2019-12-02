@@ -51,7 +51,7 @@ class HomeViewController: UIViewController {
 
     
     
-    var petHealthChecked = false
+    var petDeathChecked = false
     
     // For firebase authentication
     var handle:AuthStateDidChangeListenerHandle?
@@ -234,17 +234,25 @@ class HomeViewController: UIViewController {
                     updateBar(bar: happinessBar, last: lastPlayed!, level: happinessLevel!, color: #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1))
                 }
                 
-                // Checking if the pet is dead
-                if !petHealthChecked{
-                    if (happinessBar.value <= 0 || hygieneBar.value <= 0 || foodBar.value <= 0){
-                        petHealthChecked = true
-                        deadPetRoutine()
-                    }
+                let totalLevel = happinessBar.value + hygieneBar.value +  foodBar.value
+                
+                // Checking the health of the pet
+                if (Double(totalLevel) < PetGlobals.SICK_TOTAL_LEVEL_THRESHOLD || Double(happinessBar.value) < PetGlobals.SINGLE_LEVEL_THRESHOLD || Double(hygieneBar.value) < PetGlobals.SINGLE_LEVEL_THRESHOLD || Double(foodBar.value) < PetGlobals.SINGLE_LEVEL_THRESHOLD){
+                    sickRoutine()
+                }else{
+                    happyRoutine()
                 }
                 
                 
                 
-                
+                // Checking if the pet is dead
+                if !petDeathChecked{
+                    if (happinessBar.value <= 0 || hygieneBar.value <= 0 || foodBar.value <= 0){
+                        petDeathChecked = true
+                        deadPetRoutine()
+                    }
+                }
+  
             }else{
                 print("Couldn't parese pet map")
             }
@@ -254,8 +262,24 @@ class HomeViewController: UIViewController {
         }
     }
     
+    
+    // Put all the sick procedures here
+    func sickRoutine(){
+        healthLabel.text = PetGlobals.PET_SICK
+    }
+    
+    
+    // Put all the happy procedures here
+    func happyRoutine(){
+        healthLabel.text = PetGlobals.PET_HEALTHY
+
+    }
+    
+    
+    
+    
     func deadPetRoutine(){
-        
+        healthLabel.text = PetGlobals.PET_DEAD
         updateDBWithNewPet()
         
         // Alert User

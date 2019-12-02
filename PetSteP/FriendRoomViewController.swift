@@ -26,6 +26,7 @@ class FriendRoomViewController: UIViewController {
     @IBOutlet weak var hygieneBar: DisplayView!
     
     
+    @IBOutlet weak var healthLabel: UILabel!
     
     @IBOutlet weak var petImageView: UIImageView!
     
@@ -72,9 +73,7 @@ class FriendRoomViewController: UIViewController {
             if let petBirthday = userData?.get(FirebaseKeys.PET_BIRTHDAY) as? Timestamp{
                 daysAliveLabel.text = DAYS_ALIVE_PRE_TEXT + String(numDaysAlive(birthday:  petBirthday))
             }
-            
-            
-            
+
             if let lampPosition = userData?.get(FirebaseKeys.LAMP_POSITION) as? String{
                 lamp.image = UIImage(named: lampPosition)
             }else{
@@ -135,6 +134,17 @@ class FriendRoomViewController: UIViewController {
                     updateBar(bar: happinessBar, last: lastPlayed!, level: happinessLevel!, color: #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1))
                 }
                 
+                let totalLevel = happinessBar.value + hygieneBar.value +  foodBar.value
+
+                
+                // Checking the health of the pet
+                if (Double(totalLevel) < PetGlobals.SICK_TOTAL_LEVEL_THRESHOLD || Double(happinessBar.value) < PetGlobals.SINGLE_LEVEL_THRESHOLD || Double(hygieneBar.value) < PetGlobals.SINGLE_LEVEL_THRESHOLD || Double(foodBar.value) < PetGlobals.SINGLE_LEVEL_THRESHOLD){
+                    sickRoutine()
+                }else{
+                    happyRoutine()
+                }
+
+                
                 
             }else{
                 print("Couldn't parese pet map")
@@ -143,6 +153,17 @@ class FriendRoomViewController: UIViewController {
         }else{
             print("User data is nil")
         }
+    }
+    
+    // Put all the sick procedures here
+    func sickRoutine(){
+        healthLabel.text = PetGlobals.PET_SICK
+    }
+    
+    
+    // Put all the happy procedures here
+    func happyRoutine(){
+        healthLabel.text = PetGlobals.PET_HEALTHY
     }
     
     
