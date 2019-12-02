@@ -97,6 +97,7 @@ class DisplayStorageItemViewController: UIViewController {
         
         if animVC != nil {
             animVC!.animationItemName = itemSubType
+            animVC!.itemType = itemType
             if itemType == FURNITURE {
                 animVC!.isAnimated = false
             } else {
@@ -143,7 +144,7 @@ class DisplayStorageItemViewController: UIViewController {
             }
             
         }
-        initTimer()
+        initTimer(equip: true)
     }
     
     
@@ -161,11 +162,15 @@ class DisplayStorageItemViewController: UIViewController {
         let levelKey = getLevelFirestoreKey()
         let timestampKey = getTimestampFirestoreKey()
         updateStats(levelKey: levelKey, timestampKey: timestampKey)
-        initTimer()
+        initTimer(equip: false)
     }
     
-    func initTimer(){
-        Timer.scheduledTimer(timeInterval: PetGlobals.ANIM_DURATION, target: self, selector: #selector(fire), userInfo: nil, repeats: true)
+    func initTimer(equip: Bool){
+        var time = PetGlobals.ANIM_DURATION
+        if equip {
+            time = 1.5
+        }
+        Timer.scheduledTimer(timeInterval: time, target: self, selector: #selector(fire), userInfo: nil, repeats: true)
     }
     
     @objc func fire()
