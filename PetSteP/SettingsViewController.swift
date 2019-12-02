@@ -6,32 +6,164 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
 
 class SettingsViewController: UIViewController {
-
-    @IBOutlet weak var scrollView: UIScrollView!
+    
     
     @IBOutlet weak var visibilitySwitch: UISwitch!
     
-    @IBOutlet weak var resetPwdField: UITextField!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var retypePassword: UITextField!
+    @IBOutlet weak var oldPassword: UITextField!
+    @IBOutlet weak var newPassword: UITextField!
     
     @IBOutlet weak var aboutGameText: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateSwitch()
+        updateEmailLabel()
 
         // Do any additional setup after loading the view.
-        view.addSubview(scrollView)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    let USRNAME_REGX = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+    //  let PASS_REGX = "^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$"
+    let MIN_PASS_LEN = 6
+    
+    
+    @IBAction func onPressChangePassword(_ sender: Any) {
+        
+        
+        if validateUserInput(){
+            reAuthenticate()
+        }
+        
     }
-    */
-
+    
+    func updateSwitch(){
+        let db = Firestore.firestore()
+        if let user = Auth.auth().currentUser{
+            db.collection(FirebaseKeys.USERS_COLLECTION_NAME).whereField(FirebaseKeys.USER_ID, isEqualTo: user.uid).getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    // Loop should run a maximum of one time
+                    for document in querySnapshot!.documents {
+                        var isInvisible = false
+                        if let invisible = document.get(FirebaseKeys.INVISIBLE) as? Bool{
+                            isInvisible = invisible
+                        }
+                        print(isInvisible)
+                        self.visibilitySwitch.setOn(isInvisible, animated: true)
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    // Retrives user data from the firestore database
+    func updateEmailLabel(){
+        if let email = Auth.auth().currentUser?.email{
+            emailLabel.text = email
+        }else{
+            emailLabel.text = "Invalid Login"
+        }
+        
+    }
+    
+    
+    func reAuthenticate(){
+        let user = Auth.auth().currentUser
+        let credential: AuthCredential = EmailAuthProvider.credential(withEmail: emailLabel.text!, password: oldPassword.text!)
+        
+        // Prompt the user to re-provide their sign-in credentials
+        user?.reauthenticate(with: credential){ [weak self] authResult, error in
+            guard let strongSelf = self else {return}
+            if let error = error{ // Possibly error in old-password
+                let alert = UIAlertController(title: "Error Changing Password!", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                strongSelf.present(alert, animated: true)
+                
+            }else{ //
+                Auth.auth().currentUser?.updatePassword(to: strongSelf.newPassword.text!) { (error) in
+                    if let error = error{ // Possible error in new password
+                        let alert = UIAlertController(title: "Error Changing Password!", message: error.localizedDescription, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                        strongSelf.present(alert, animated: true)
+                    }else{
+                        let alert = UIAlertController(title: "Password Changed!", message: "Your password was successfully changed.", preferredStyle: .actionSheet)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                        strongSelf.present(alert, animated: true)
+                    }
+                }
+            }
+            
+            
+        }
+    }
+    
+    @IBAction func onSwitchChanged(_ sender: Any) {
+        
+        let invisibility:Bool = visibilitySwitch.isOn
+        togggleInvisibility(isInvisible: invisibility)
+        
+    }
+    
+    func togggleInvisibility(isInvisible: Bool){
+        let db = Firestore.firestore()
+        if let user = Auth.auth().currentUser{
+            
+            db.collection(FirebaseKeys.USERS_COLLECTION_NAME).whereField(FirebaseKeys.USER_ID, isEqualTo: user.uid).getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    // Loop should run a maximum of one time
+                    for document in querySnapshot!.documents {
+                        let userRef = db.collection("users").document("\(document.documentID)")
+                        userRef.updateData([
+                            FirebaseKeys.INVISIBLE : isInvisible
+                            ])
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    // Function to validate the user input
+    func validateUserInput() -> Bool{
+        if let username = emailLabel.text{
+            if let password = newPassword.text{
+                if newPassword.text! == retypePassword.text!{
+                    if username.range(of: USRNAME_REGX, options: .regularExpression) != nil{
+                        if password.count >= MIN_PASS_LEN {
+                            return true;
+                        }else{
+                            let alert = UIAlertController(title: "Invalid Password", message: "Please enter a password that is at least \(MIN_PASS_LEN) characters long.", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                            present(alert, animated:true)
+                        }
+                    }else{
+                        let alert = UIAlertController(title: "Invalid Username", message: "Please enter the email address that you used to register for an acount.", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                        present(alert, animated:true)
+                    }
+                }else{
+                    let alert = UIAlertController(title: "Invalid Password", message: "Please make sure you re-typed the same password.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    present(alert, animated:true)
+                }
+            }
+        }
+        
+        
+        return false
+    }
+    
 }

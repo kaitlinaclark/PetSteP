@@ -15,6 +15,7 @@ class FirebaseKeys{
     public static let TOTAL_STEPS = "totalSteps"
     
     public static let NUMBER_OF_VISITS = "numberOfVisits"
+    public static let INVISIBLE = "invisible"
 
 
     public static let PET = "pet"
@@ -38,6 +39,7 @@ class FirebaseKeys{
     public static let PET_HAPPINESS_LEVEL = "\(PET).happiness"
     public static let PET_HYGIENE_LEVEL = "\(PET).hygiene"
     public static let PET_BIRTHDAY = "\(PET).birthday"
+    
     
     
 

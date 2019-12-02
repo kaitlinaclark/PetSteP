@@ -87,7 +87,15 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UISearchBarD
                 } else {
                     for document in querySnapshot!.documents {
                         print(document)
-                        self.searchResults.append(document)
+                        var isInvisible = false
+                        if let invisible = document.get(FirebaseKeys.INVISIBLE) as? Bool{
+                            isInvisible = invisible
+                        }
+                        
+                        if !isInvisible{
+                            self.searchResults.append(document)
+                        }
+                        
                     }
                     self.onDoneSearching()
                 }

@@ -380,6 +380,14 @@ class HomeViewController: UIViewController {
     @IBAction func onLogoutButtonPressed(_ sender: Any) {
         logoutFromFirebase()
         pushLoginView()
+        
+
+    }
+    
+    func clearFirebaseCache(){
+        let db = Firestore.firestore()
+        db.clearPersistence()
+        
     }
     
     

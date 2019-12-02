@@ -63,7 +63,8 @@ class PetDetailsViewController: UIViewController {
             
             if let pet = userData?.get(FirebaseKeys.PET) as? [String:AnyObject]{
                 if let petName = pet[FirebaseKeys.NAME] as? String{
-                    nameLabel.text = petName
+                    nameLabel.text = petName.capitalized
+                    
                 }
                 
                 if let petType = pet[FirebaseKeys.TYPE] as? String{
