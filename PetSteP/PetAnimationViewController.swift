@@ -43,11 +43,13 @@ class PetAnimationViewController: UIViewController {
     
     @IBOutlet weak var petImageView: UIImageView!
     
-    @IBOutlet weak var itemView: UIImageView!
+    @IBOutlet weak var foodItemView: UIImageView!
+    @IBOutlet weak var funItemView: UIImageView!
+    @IBOutlet weak var balloonView: UIImageView!
     
     
     var animationItemName:String?
-    
+    var itemType:String?
     var isAnimated = true
     
     let defaults = UserDefaults.standard
@@ -99,13 +101,22 @@ class PetAnimationViewController: UIViewController {
             } else {
                 let item = UIImage(named: "\(animationItemName!)")
                 item_frames.append(item!)
+            } 
+            
+            if itemType == "food" {
+                foodItemView.animationImages = item_frames
+                foodItemView.animationDuration = 3.0
+                foodItemView.startAnimating()
+            } else if animationItemName == "balloon" {
+                balloonView.animationImages = item_frames
+                balloonView.animationDuration = 2.0
+                balloonView.startAnimating()
+            } else {
+                funItemView.animationImages = item_frames
+                funItemView.animationDuration = 2.0
+                funItemView.startAnimating()
             }
             
-            
-            itemView.animationImages = item_frames
-            itemView.animationDuration = 3.0
-            //itemView.animationRepeatCount = 3
-            itemView.startAnimating()
         }
         if petType != nil{
             print("Current pet is a \(petType!)")
