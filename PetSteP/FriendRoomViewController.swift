@@ -141,8 +141,10 @@ class FriendRoomViewController: UIViewController {
 
                 
                 // Checking the health of the pet
-                if (Double(totalLevel) < PetGlobals.SICK_TOTAL_LEVEL_THRESHOLD || Double(happinessBar.value) < PetGlobals.SINGLE_LEVEL_THRESHOLD || Double(hygieneBar.value) < PetGlobals.SINGLE_LEVEL_THRESHOLD || Double(foodBar.value) < PetGlobals.SINGLE_LEVEL_THRESHOLD){
+                if (Double(totalLevel) < PetGlobals.SICK_TOTAL_LEVEL_THRESHOLD || Double(hygieneBar.value) < PetGlobals.SINGLE_LEVEL_THRESHOLD || Double(foodBar.value) < PetGlobals.SINGLE_LEVEL_THRESHOLD){
                     sickRoutine()
+                }else if (Double(happinessBar.value) < PetGlobals.SINGLE_LEVEL_THRESHOLD ){
+                    sadRoutine()
                 }else{
                     happyRoutine()
                 }
@@ -163,7 +165,11 @@ class FriendRoomViewController: UIViewController {
         healthLabel.text = PetGlobals.PET_SICK
         petImageView.image = UIImage(named: "\(petType!)_sick")
     }
-    
+    // Put all the sad procedures here
+    func sadRoutine(){
+        healthLabel.text = PetGlobals.PET_HEALTHY
+        petImageView.image = UIImage(named: "\(petType!)_sad")
+    }
     
     // Put all the happy procedures here
     func happyRoutine(){
