@@ -212,7 +212,7 @@ class PetAnimationViewController: UIViewController {
                 let totalLevel = happinessBar.value + hygieneBar.value +  foodBar.value
                 
                 // Checking the health of the pet
-                if (Double(totalLevel) < PetGlobals.SICK_TOTAL_LEVEL_THRESHOLD || Double(happinessBar.value) < PetGlobals.SINGLE_LEVEL_THRESHOLD || Double(hygieneBar.value) < PetGlobals.SINGLE_LEVEL_THRESHOLD || Double(foodBar.value) < PetGlobals.SINGLE_LEVEL_THRESHOLD){
+                if (animationItemName == "halfNHalf"){
                     sickRoutine()
                 }else{
                     happyRoutine()
@@ -250,7 +250,7 @@ class PetAnimationViewController: UIViewController {
     // Put all the sick procedures here
     func sickRoutine(){
         healthLabel.text = PetGlobals.PET_SICK
-        petImageView.image = UIImage(named: "\(petType!)_sick")
+        petImageView.image = UIImage(named: "\(petType!)_negative")
     }
     
     
