@@ -101,7 +101,7 @@ class PetAnimationViewController: UIViewController {
             } else {
                 let item = UIImage(named: "\(animationItemName!)")
                 item_frames.append(item!)
-            }
+            } 
             
             if itemType == "food" {
                 foodItemView.animationImages = item_frames
