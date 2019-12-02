@@ -161,12 +161,14 @@ class FriendRoomViewController: UIViewController {
     // Put all the sick procedures here
     func sickRoutine(){
         healthLabel.text = PetGlobals.PET_SICK
+        petImageView.image = UIImage(named: "\(petType!)_sick")
     }
     
     
     // Put all the happy procedures here
     func happyRoutine(){
         healthLabel.text = PetGlobals.PET_HEALTHY
+        petImageView.image = UIImage(named: petType!)
     }
     
     
