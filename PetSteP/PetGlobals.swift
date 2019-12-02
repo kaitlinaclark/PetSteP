@@ -18,7 +18,7 @@ class PetGlobals{
     
     public static let ANIM_DURATION = 3.0
     
-    public static let ANIM_FRAMES = ["apple": 4, "balloon": 3, "beachBall": 1, "coffee": 3, "donut": 5, "fries": 4, "milk": 3, "musicPlayer": 4, "orangeJuice": 3, "soap": 1, "water": 3]
+    public static let ANIM_FRAMES = ["apple": 4, "balloon": 3, "beachBall": 1, "chickenNuggets": 4, "coffee": 3, "donut": 5, "fries": 4, "halfNHalf": 4, "milk": 3, "musicPlayer": 4, "orangeJuice": 3, "pill": 1, "soap": 1, "water": 3]
     
     public static let PET_HEALTHY = "Healthy"
     public static let PET_SICK = "Sick"
