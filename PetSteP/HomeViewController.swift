@@ -45,7 +45,7 @@ class HomeViewController: UIViewController {
     
     let defaults = UserDefaults.standard
     
-    let STEPS_LABEL = "Today's step count:"
+    let STEPS_LABEL = "Steps Today:"
     let COINS_LABEL = "Coins:"
     let DAYS_ALIVE_PRE_TEXT = "Days Alive: "
 
@@ -95,14 +95,20 @@ class HomeViewController: UIViewController {
                                     let lastHarvestedAmount = document.get(FirebaseKeys.LAST_HARVESTED_AMOUNT) as? Int
                                     let coins =  document.get(FirebaseKeys.COINS) as? Int
                                     var newCoins = 0
+                                    var totalHarvestedToday = 0
+                                    print("no steps today")
                                     
                                     if lastHarvestedDate != nil && lastHarvestedAmount != nil{
+                                        var harvestableSteps = noStepsToday
                                         if self.isToday(lastHarvestedDate: lastHarvestedDate!){ // Checking if the steps were harvested today
-                                            let harvestableSteps = noStepsToday - lastHarvestedAmount!
+                                             harvestableSteps -= lastHarvestedAmount!
+                                        }
+
                                             //set label to pedometer value
-                                            self.stepsLabel.text = "\(self.STEPS_LABEL)\(harvestSteps)"
+                                            self.stepsLabel.text = "\(self.STEPS_LABEL)\(harvestableSteps)"
                                             
-                                            if(harvestSteps){
+                                            if(harvestSteps && harvestableSteps != 0){
+                                                self.stepsLabel.text = "\(self.STEPS_LABEL)0"
                                                 // Updating the new coins value
                                                 if coins != nil {
                                                     newCoins = coins! + (harvestableSteps * PetGlobals.COINS_PER_STEP)
@@ -110,11 +116,11 @@ class HomeViewController: UIViewController {
                                                 db.collection(FirebaseKeys.USERS_COLLECTION_NAME)
                                                     .document(document.documentID)
                                                     .updateData([
-                                                        FirebaseKeys.LAST_HARVESTED_AMOUNT : harvestableSteps,
+                                                        FirebaseKeys.LAST_HARVESTED_AMOUNT : noStepsToday,
                                                         FirebaseKeys.LAST_HARVESTED_DATE   : FieldValue.serverTimestamp(),
                                                         FirebaseKeys.COINS                 : newCoins ])
                                             }
-                                        }
+
                                     }
                                 }
                             }
@@ -148,10 +154,13 @@ class HomeViewController: UIViewController {
         let year = calendar.component(.year, from: dateVal)
         let lastDateStr = "\(day)/\(month)/\(year)"
         
-        let curDay = calendar.component(.day, from: curTime) + 1
+        let curDay = calendar.component(.day, from: curTime)
         let curMonth = calendar.component(.month, from: curTime)
         let curYear = calendar.component(.year, from: curTime)
         let curDateStr = "\(curDay)/\(curMonth)/\(curYear)"
+        
+        print("last " + lastDateStr)
+        print("cur " + curDateStr)
         
         return (curDateStr == lastDateStr)
     }
