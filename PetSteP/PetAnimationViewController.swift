@@ -48,6 +48,7 @@ class PetAnimationViewController: UIViewController {
     @IBOutlet weak var balloonView: UIImageView!
     
     
+    
     var animationItemName:String?
     var itemType:String?
     var isAnimated = true

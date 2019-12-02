@@ -30,6 +30,8 @@ class FriendRoomViewController: UIViewController {
     
     @IBOutlet weak var petImageView: UIImageView!
     
+    var petType:String?
+    
     let TOTAL_STEPS_PRE_TEXT = "Total Steps: "
     let DAYS_ALIVE_PRE_TEXT = "Days Alive: "
     
@@ -105,6 +107,7 @@ class FriendRoomViewController: UIViewController {
                 }
                 
                 if let petType = pet[FirebaseKeys.TYPE] as? String{
+                    self.petType = petType
                     petImageView.image = UIImage(named: petType)
                 }else{
                     petImageView.image = nil

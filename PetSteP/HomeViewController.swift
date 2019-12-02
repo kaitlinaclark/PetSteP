@@ -52,6 +52,7 @@ class HomeViewController: UIViewController {
     
     
     var petDeathChecked = false
+    var petType:String?
     
     // For firebase authentication
     var handle:AuthStateDidChangeListenerHandle?
@@ -205,6 +206,7 @@ class HomeViewController: UIViewController {
                 }
                 
                 if let petType = pet[FirebaseKeys.TYPE] as? String{
+                    self.petType = petType
                     petImageView.image = UIImage(named: petType)
                 }else{
                     petImageView.image = nil
