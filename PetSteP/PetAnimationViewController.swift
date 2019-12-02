@@ -88,7 +88,7 @@ class PetAnimationViewController: UIViewController {
         // ===== PUT ALL THE CODE FOR ITEM ANIMATION HERE ====
         // you may delete the following print blocks
         var item_frames: [UIImage] = []
-        if animationItemName != nil && animationItemName != {
+        if animationItemName != nil {
             print("Now using item \(animationItemName!)")
             
             for i in 0..<PetGlobals.ANIM_FRAMES[animationItemName!]! {
