@@ -1684,7 +1684,6 @@
                                             <state key="normal" title="Use"/>
                                             <connections>
                                                 <action selector="useItem:" destination="6rJ-4j-uGX" eventType="touchUpInside" id="N8g-lj-tyE"/>
-                                                <segue destination="j6S-kt-tSd" kind="show" id="6SW-qf-ScT"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -1918,7 +1917,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ukc-5c-jpZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1700" y="-372"/>
+            <point key="canvasLocation" x="4284" y="-918"/>
         </scene>
         <!--FriendRoomVC-->
         <scene sceneID="Ong-BX-Gen">

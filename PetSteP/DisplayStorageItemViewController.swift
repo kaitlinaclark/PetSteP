@@ -92,9 +92,18 @@ class DisplayStorageItemViewController: UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let petAnimVC = storyBoard.instantiateViewController(withIdentifier: "PetAnimationVC")
         petAnimVC.modalPresentationStyle = .fullScreen
-        present(petAnimVC, animated: true, completion: completionTask)
         
+        let animVC = petAnimVC as? PetAnimationViewController
         
+        if animVC != nil {
+            animVC!.animationItemName = itemSubType
+            animVC!.itemType = itemType
+            present(animVC!, animated: true, completion: completionTask)
+        } else {
+            print("PetAnimationVC load error")
+        }
+        
+        //present(petAnimVC, animated: true, completion: completionTask)
     }
     
     func performItemEquip(){

@@ -48,6 +48,8 @@ class PetAnimationViewController: UIViewController {
     
     var animationItemName:String?
     
+
+    
     let defaults = UserDefaults.standard
     
     let STEPS_LABEL = "Steps:"
@@ -86,18 +88,18 @@ class PetAnimationViewController: UIViewController {
         // ===== PUT ALL THE CODE FOR ITEM ANIMATION HERE ====
         // you may delete the following print blocks
         var item_frames: [UIImage] = []
-        if animationItemName != nil{
+        if animationItemName != nil && animationItemName != {
             print("Now using item \(animationItemName!)")
             
-            for i in 0...2 {
+            for i in 0..<PetGlobals.ANIM_FRAMES[animationItemName!]! {
                 let item = UIImage(named: "\(animationItemName!)_000\(i)")
                 print("\(animationItemName!)_000\(i)")
                 item_frames.append(item!)
             }
             
             itemView.animationImages = item_frames
-            itemView.animationDuration = 1.5
-            itemView.animationRepeatCount = 1
+            itemView.animationDuration = 3.0
+            //itemView.animationRepeatCount = 3
             itemView.startAnimating()
         }
         if petType != nil{
