@@ -92,7 +92,7 @@ class DisplayStorageItemViewController: UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let petAnimVC = storyBoard.instantiateViewController(withIdentifier: "PetAnimationVC")
         petAnimVC.modalPresentationStyle = .fullScreen
-        
+         
         let animVC = petAnimVC as? PetAnimationViewController
         
         if animVC != nil {
