@@ -37,6 +37,13 @@ class ViewController: UIViewController, UITextFieldDelegate{
     
     //hide keyboard when user presses return
     func textFieldShouldReturn(_ usernameField: UITextField) -> Bool {
+        toggleUI(display: false)
+        toggleSpinner(display: true)
+        if validateUserInput(){
+            logIn();
+        } // TODO: Display message for invalid input
+        
+        
         usernameField.resignFirstResponder()
         return true
     }

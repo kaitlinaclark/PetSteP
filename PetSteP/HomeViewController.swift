@@ -45,13 +45,14 @@ class HomeViewController: UIViewController {
     
     let defaults = UserDefaults.standard
     
-    let STEPS_LABEL = "Today's step count:"
+    let STEPS_LABEL = "Steps Today:"
     let COINS_LABEL = "Coins:"
     let DAYS_ALIVE_PRE_TEXT = "Days Alive: "
 
     
     
-    var petHealthChecked = false
+    var petDeathChecked = false
+    var petType:String?
     
     // For firebase authentication
     var handle:AuthStateDidChangeListenerHandle?
@@ -94,14 +95,19 @@ class HomeViewController: UIViewController {
                                     let lastHarvestedAmount = document.get(FirebaseKeys.LAST_HARVESTED_AMOUNT) as? Int
                                     let coins =  document.get(FirebaseKeys.COINS) as? Int
                                     var newCoins = 0
+                                    print("no steps today")
                                     
                                     if lastHarvestedDate != nil && lastHarvestedAmount != nil{
+                                        var harvestableSteps = noStepsToday
                                         if self.isToday(lastHarvestedDate: lastHarvestedDate!){ // Checking if the steps were harvested today
-                                            let harvestableSteps = noStepsToday - lastHarvestedAmount!
+                                             harvestableSteps -= lastHarvestedAmount!
+                                        }
+
                                             //set label to pedometer value
-                                            self.stepsLabel.text = "\(self.STEPS_LABEL)\(harvestSteps)"
+                                            self.stepsLabel.text = "\(self.STEPS_LABEL)\(harvestableSteps)"
                                             
-                                            if(harvestSteps){
+                                            if(harvestSteps && harvestableSteps != 0){
+                                                self.stepsLabel.text = "\(self.STEPS_LABEL)0"
                                                 // Updating the new coins value
                                                 if coins != nil {
                                                     newCoins = coins! + (harvestableSteps * PetGlobals.COINS_PER_STEP)
@@ -109,11 +115,11 @@ class HomeViewController: UIViewController {
                                                 db.collection(FirebaseKeys.USERS_COLLECTION_NAME)
                                                     .document(document.documentID)
                                                     .updateData([
-                                                        FirebaseKeys.LAST_HARVESTED_AMOUNT : harvestableSteps,
+                                                        FirebaseKeys.LAST_HARVESTED_AMOUNT : noStepsToday,
                                                         FirebaseKeys.LAST_HARVESTED_DATE   : FieldValue.serverTimestamp(),
                                                         FirebaseKeys.COINS                 : newCoins ])
                                             }
-                                        }
+
                                     }
                                 }
                             }
@@ -147,10 +153,13 @@ class HomeViewController: UIViewController {
         let year = calendar.component(.year, from: dateVal)
         let lastDateStr = "\(day)/\(month)/\(year)"
         
-        let curDay = calendar.component(.day, from: curTime) + 1
+        let curDay = calendar.component(.day, from: curTime)
         let curMonth = calendar.component(.month, from: curTime)
         let curYear = calendar.component(.year, from: curTime)
         let curDateStr = "\(curDay)/\(curMonth)/\(curYear)"
+        
+        print("last " + lastDateStr)
+        print("cur " + curDateStr)
         
         return (curDateStr == lastDateStr)
     }
@@ -205,6 +214,7 @@ class HomeViewController: UIViewController {
                 }
                 
                 if let petType = pet[FirebaseKeys.TYPE] as? String{
+                    self.petType = petType
                     petImageView.image = UIImage(named: petType)
                 }else{
                     petImageView.image = nil
@@ -234,17 +244,25 @@ class HomeViewController: UIViewController {
                     updateBar(bar: happinessBar, last: lastPlayed!, level: happinessLevel!, color: #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1))
                 }
                 
-                // Checking if the pet is dead
-                if !petHealthChecked{
-                    if (happinessBar.value <= 0 || hygieneBar.value <= 0 || foodBar.value <= 0){
-                        petHealthChecked = true
-                        deadPetRoutine()
-                    }
+                let totalLevel = happinessBar.value + hygieneBar.value +  foodBar.value
+                
+                // Checking the health of the pet
+                if (Double(totalLevel) < PetGlobals.SICK_TOTAL_LEVEL_THRESHOLD || Double(happinessBar.value) < PetGlobals.SINGLE_LEVEL_THRESHOLD || Double(hygieneBar.value) < PetGlobals.SINGLE_LEVEL_THRESHOLD || Double(foodBar.value) < PetGlobals.SINGLE_LEVEL_THRESHOLD){
+                    sickRoutine()
+                }else{
+                    happyRoutine()
                 }
                 
                 
                 
-                
+                // Checking if the pet is dead
+                if !petDeathChecked{
+                    if (happinessBar.value <= 0 || hygieneBar.value <= 0 || foodBar.value <= 0){
+                        petDeathChecked = true
+                        deadPetRoutine()
+                    }
+                }
+  
             }else{
                 print("Couldn't parese pet map")
             }
@@ -254,8 +272,24 @@ class HomeViewController: UIViewController {
         }
     }
     
+    
+    // Put all the sick procedures here
+    func sickRoutine(){
+        healthLabel.text = PetGlobals.PET_SICK
+    }
+    
+    
+    // Put all the happy procedures here
+    func happyRoutine(){
+        healthLabel.text = PetGlobals.PET_HEALTHY
+
+    }
+    
+    
+    
+    
     func deadPetRoutine(){
-        
+        healthLabel.text = PetGlobals.PET_DEAD
         updateDBWithNewPet()
         
         // Alert User

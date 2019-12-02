@@ -133,9 +133,6 @@ class DisplayStorageItemViewController: UIViewController {
                                         print("Document successfully written!")
                                     }
                                 }
-                            }else{
-                                print(itemPosition)
-                                print(self.itemSubType)
                             }
                         }
                     }

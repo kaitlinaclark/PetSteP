@@ -17,9 +17,14 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var retypePassword: UITextField!
     @IBOutlet weak var oldPassword: UITextField!
+    @IBOutlet weak var changePasswordButton: UIButton!
     @IBOutlet weak var newPassword: UITextField!
-    
     @IBOutlet weak var aboutGameText: UITextView!
+    @IBOutlet weak var passwordView: UIView!
+    
+    
+    var spinnerView:UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateSwitch()
@@ -37,6 +42,8 @@ class SettingsViewController: UIViewController {
         
         
         if validateUserInput(){
+            toggleUI(display: false)
+            toggleSpinner(display: true)
             reAuthenticate()
         }
         
@@ -87,6 +94,9 @@ class SettingsViewController: UIViewController {
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                 strongSelf.present(alert, animated: true)
                 
+                strongSelf.toggleUI(display: true)
+                strongSelf.toggleSpinner(display: false)
+                
             }else{ //
                 Auth.auth().currentUser?.updatePassword(to: strongSelf.newPassword.text!) { (error) in
                     if let error = error{ // Possible error in new password
@@ -99,6 +109,9 @@ class SettingsViewController: UIViewController {
                         strongSelf.present(alert, animated: true)
                     }
                 }
+                strongSelf.toggleUI(display: true)
+                strongSelf.toggleSpinner(display: false)
+                
             }
             
             
@@ -131,6 +144,29 @@ class SettingsViewController: UIViewController {
             }
         }
     }
+    
+    // Hide all the UI
+    func toggleUI(display:Bool){
+        newPassword.isHidden = !display
+        retypePassword.isHidden = !display
+        oldPassword.isHidden = !display
+        changePasswordButton.isHidden = !display
+    }
+    
+    // Enable/Disable Spinner while registering the user.
+    func toggleSpinner(display:Bool){
+        if spinnerView == nil{
+            spinnerView = UIActivityIndicatorView.init(style: .gray)
+            spinnerView.center = view.center
+            view.addSubview(spinnerView)
+        }
+        if display{
+            spinnerView.startAnimating()
+        }else{
+            spinnerView.stopAnimating()
+        }
+    }
+    
     
     
     
